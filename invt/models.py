@@ -8,19 +8,16 @@ HurryLevel = (
 	('N','Whenever'),
 )
 
-
 class Needs(models.Model):
 	pub_date = models.DateTimeField('date published')
-	pay_by_school = models.BooleanField() #部費か？
-	price = models.CharField(max_length=20)#値段
-	shop = models.CharField(max_length=20)#どこで買うか
+	pay_by_school = models.BooleanField() 
+	price = models.CharField(max_length=20)
+	shop = models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
-	properties models.CharField(max_length=140)#型番や属性(抵抗値とか)
-#	-種別
-	adress = models.CharField(max_length=140)#登録者のメールアドレス
-#	-至急度別の数
+	properties = models.CharField(max_length=140)
+	adress = models.CharField(max_length=140)
 	level = models.CharField(max_length=1,choices=HurryLevel)
-	url = models.CharField(max_length=200)#注意書きや解説記事へのリファレンス
+	url = models.CharField(max_length=200)
 	def __unicode__(self):
 		return self.name
 
