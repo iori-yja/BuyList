@@ -2,16 +2,12 @@ from django.db import models
 
 class Needs(models.Model):
 	pub_date = models.DateTimeField('date published')
-#	-部費か否か
-    GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
-	pay_by_school = models.BooleanField()
-	price = models.CharField(max_length=20)
-	shop = models.CharField(max_length=20)
+	pay_by_school = models.BooleanField() #部費か？
+	price = models.CharField(max_length=20)#値段
+	shop = models.CharField(max_length=20)#どこで買うか
 	name = models.CharField(max_length=20)
 #	-型番もしくは属性(抵抗値やワット数など)
+	properties models.CharField(max_length=140)
 #	-種別
 #	-登録者
 #	-至急度別の数
