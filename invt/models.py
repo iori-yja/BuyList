@@ -10,7 +10,7 @@ HurryLevel = (
 
 class Needs(models.Model):
 	pub_date = models.DateTimeField('date published')
-	pay_by_school = models.BooleanField() 
+	pay_by_school = models.BooleanField() #hoge
 	price = models.CharField(max_length=20)
 	shop = models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
