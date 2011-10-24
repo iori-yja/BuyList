@@ -6,13 +6,11 @@ class Needs(models.Model):
 	price = models.CharField(max_length=20)#値段
 	shop = models.CharField(max_length=20)#どこで買うか
 	name = models.CharField(max_length=20)
-#	-型番もしくは属性(抵抗値やワット数など)
-	properties models.CharField(max_length=140)
+	properties models.CharField(max_length=140)#型番や属性(抵抗値とか)
 #	-種別
-#	-登録者
+	adress = models.CharField(max_length=140)#登録者のメールアドレス
 #	-至急度別の数
-#	-注意書きや解説記事へのリファレンス
-	url = models.CharField(max_length=200)
+	url = models.CharField(max_length=200)#注意書きや解説記事へのリファレンス
 	def __unicode__(self):
 		return self.question
 
