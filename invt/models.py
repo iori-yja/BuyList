@@ -22,7 +22,7 @@ class Needs(models.Model):
 	shop = models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
-	partype = models.CharField(max_length=2,choises=parts_type)#種別
+	partype = models.CharField(max_length=2,choices=parts_type)#種別
 	adress = models.CharField(max_length=140)#登録者のメールアドレス
 #	至急度別の数
 	Mnum = models.IntegerField('Immediately')
