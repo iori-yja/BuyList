@@ -14,7 +14,7 @@ parts_type = (
 	('ot','otherparts'),#Other parts
 )
 
-class Needs(models.Model):
+class Part(models.Model):
 	pub_date = models.DateTimeField('date published')
 	up_date = models.DateTimeField('date updated')
 	pay_by_school = models.BooleanField()#部費か?
@@ -30,4 +30,7 @@ class Needs(models.Model):
 	Nnum = models.IntegerField('Normal')
 	Wnum = models.IntegerField('whenever')
 	url = models.CharField(max_length=400)#注意書きや解説記事へのリファレンス
+
+from django.contrib import admin
+admin.site.register(Part)
 
