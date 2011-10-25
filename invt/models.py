@@ -2,11 +2,16 @@
 from django.db import models
 
 parts_type = (
-	('',''),
-	('',''),
-	('',''),
-	('',''),
-	('',''),
+	('st','Subtrace'),#基板
+	('wr','wiring'),#はんだ,錫メッキ線,ポリウレタン線
+	('cn','connector'),#ピン,コネクタ,ケーブル
+	('rt','resistor'),#抵抗
+	('ss','sensor'),#センサ
+	('ld','LED'),
+	('ic','IC'),#三端子レギュレータ,オペアンプ,モータドライバ,AND,OR,PIC
+	('fx','fixer'),#スペーサ,ナット,ねじ
+	('mt','material'),#車体材料,10[Y/cm^3]
+	('ot','otherparts'),#Other parts
 )
 
 class Needs(models.Model):
