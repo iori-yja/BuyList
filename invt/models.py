@@ -24,7 +24,7 @@ class Needs(models.Model):
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
 	partype = models.CharField(max_length=2,choices=parts_type)#種別
 	adress = models.CharField(max_length=140)#登録者のメールアドレス
-#	至急度別の数
+	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Hnum = models.IntegerField('Hurry')
 	Nnum = models.IntegerField('Normal')
