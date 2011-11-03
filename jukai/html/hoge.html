@@ -1,0 +1,37 @@
+<html lang=ja>
+<head>
+	<title> 部品リスト(最新5件) </title>
+	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
+<body>
+<div id="inheader">
+	<div style="float:right;">
+		検索    
+		ログイン
+		<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
+		<br>
+	</div>
+</div>
+<div id="header">
+	<div style="float:left;">
+	<div id="box1">物理部</div>
+	<div id="box2">電気部</div>
+	</div>
+	<div id="box3">::部品リスト</div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+<div id="abs">
+{% if latest_part%}
+<ul>
+{% for p in latest_part %}
+<li>{{ p.name }},{{ p.properties }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+</div>
+</body>
+
