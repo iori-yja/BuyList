@@ -1,6 +1,6 @@
 <html lang=ja>
 <head>
-	<title> 部品リスト(最新5件) </title>
+	<title> 部品リスト(最新{{ length }}件) </title>
 	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
 <body>
 <div id="inheader">
@@ -26,7 +26,7 @@
 {% if latest_part%}
 <ul>
 {% for p in latest_part %}
-<li>{{ p.name }},{{ p.properties }}</li>
+<li>{{ p.name }},{{ p.properties }},{{p.Nnum}},{{ p.Hnum|add:p.Wnum|add:p.Nnum|add:p.Mnum }}, {{ p.allneeds }}</li>
 {% endfor %}
 </ul>
 {% else %}

@@ -9,3 +9,11 @@ def index(request):
 		'latest_part': latest_part,
 	})
 	return HttpResponse(t.render(c))
+
+def update(request,length):
+	latest_part = Part.objects.all().order_by('up_date')[:length]
+	t = loader.get_template('html/hoge.html')
+	c = Context({
+		'latest_part': latest_part,
+	})
+	return HttpResponse(t.render(c))

@@ -18,7 +18,7 @@ class Part(models.Model):
 	pub_date = models.DateTimeField('date published')
 	up_date = models.DateTimeField('date updated')
 	pay_by_school = models.BooleanField()#部費か?
-	price = models.CharField(max_length=20)
+	price = models.IntegerField()
 	shop = models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
@@ -30,6 +30,14 @@ class Part(models.Model):
 	Nnum = models.IntegerField('Normal')
 	Wnum = models.IntegerField('whenever')
 	url = models.CharField(max_length=400)#注意書きや解説記事へのリファレンス
+	def __unicode__(self):
+		return self.name
+	def allneeds(self):
+		return self.Mnum+self.Hnum+self.Nnum+self.Wnum
+	def hurryup(self):
+		return self.Mnum+self.Hnum
+	def hurrycost(self):
+		return self.price*(self.hurryup())
 
 from django.contrib import admin
 admin.site.register(Part)
