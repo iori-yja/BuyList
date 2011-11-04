@@ -15,5 +15,15 @@ def update(request,length):
 	t = loader.get_template('html/hoge.html')
 	c = Context({
 		'latest_part': latest_part,
+		'update': length,
+	})
+	return HttpResponse(t.render(c))
+
+def popular(request,length):
+	latest_part = Part.objects.all().order_by('allneeds')[:length]
+	t = loader.get_template('html/hoge.html')
+	c = Context({
+		'latest_part': latest_part,
+		'update': length,
 	})
 	return HttpResponse(t.render(c))

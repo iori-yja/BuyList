@@ -1,14 +1,13 @@
 <html lang=ja>
 <head>
-	<title> 部品リスト(最新{{ length }}件) </title>
+	<title> 部品リスト{% if update %} 新着{{ update }}件 {% endif %} </title>
 	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
 <body>
 <div id="inheader">
-	<div style="float:right;">
-		検索    
+	<div align="center">
+		検索
 		ログイン
 		<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
-		<br>
 	</div>
 </div>
 <div id="header">
@@ -16,14 +15,10 @@
 	<div id="box1">物理部</div>
 	<div id="box2">電気部</div>
 	</div>
-	<div id="box3">::部品リスト</div>
-	</div>
-	</div>
+	<div id="box3">::部品リスト{% if update %}::新着{{ update }}件 {% endif %}</div>
+	<div id="sepx"></div>
 </div>
-</div>
-</div>
-<div id="sepx">
-<div id="abs">
+<div id="bod">
 {% if latest_part%}
 <ul>
 {% for p in latest_part %}
@@ -31,8 +26,10 @@
 {% endfor %}
 </ul>
 {% else %}
-<p>No polls are available.</p>
+<p>I don't know anything about mechatronics.</p>
 {% endif %}
+test: <a href="http://localhost:8000/jukai/5"> hige </a>
 </div>
+
 </body>
 

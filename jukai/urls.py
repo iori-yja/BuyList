@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'jukai/admin/', include(admin.site.urls)),
     url(r'^jukai/$','jukai.invt.views.index'),
     url(r'^jukai/(\d+)','jukai.invt.views.update'),
+    url(r'^jukai/pop/(\d+)','jukai.invt.views.popular'),
 )

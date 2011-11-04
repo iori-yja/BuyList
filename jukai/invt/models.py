@@ -23,13 +23,13 @@ class Part(models.Model):
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
 	partype = models.CharField(max_length=2,choices=parts_type)#種別
-	adress = models.CharField(max_length=140)#登録者のメールアドレス
+	adress = models.CharField(max_length=140,blank=True)#登録者のメールアドレス
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Hnum = models.IntegerField('Hurry')
 	Nnum = models.IntegerField('Normal')
 	Wnum = models.IntegerField('whenever')
-	url = models.CharField(max_length=400)#注意書きや解説記事へのリファレンス
+	url = models.CharField(max_length=400,blank=True)#注意書きや解説記事へのリファレンス
 	def __unicode__(self):
 		return self.name
 	def allneeds(self):
