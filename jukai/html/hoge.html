@@ -2,7 +2,7 @@
 <head>
 	<title> 部品リスト{% if update %} 新着{{ length }}件 {% else %} {% if popular %} 人気 {% endif %} {% endif%} </title>
 	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
-	<link href="http://nimbupani.com/csstables/csstables.css" rel=stylesheet type="text/css">
+	<link href="http://iorivr.dyndns.org/bluedream.css" rel=stylesheet type="text/css">
 	i
 <body>
 <div id="inheader">
@@ -23,30 +23,43 @@
 <div id="bod">
 <table summary="test">
 	<thead><tr>
-			<th scope="col">Fooooooooooooooooooooooollay!</th>
-			<th scope="col">Hoge</th>
-			<th scope="col">Bar</th>
-			<th scope="col">Foo</th>
+			<th scope="col">分類</th>
+			<th scope="col">種類</th>
+			<th scope="col">値段</th>
+			<th scope="col">お店</th>
+			<th scope="col">Properties </th>
+			<th scope="col">サイト</th>
+			<th scope="col">今すぐに</th>
+			<th scope="col">急いで</th>
+			<th scope="col">そろそろ</th>
+			<th scope="col">いつでも</th>
+			<th scope="col">Sum </th>
+			<th scope="col">Lastupdated </th>
 		</tr></thead>
-	<tbody><tr>
-			<th scope="row" id="r100">hogehogehoge</th>
-			<th scope="row" id="r100">everything is going to be alright.</th>
-			<th scope="row" id="r100">hogehogehoge</th>
-			<th scope="row" id="r100">I be alright.</th>
+	<tbody>
+		{% if latest_part%}
+		<tr>{% for p in latest_part %}
+			<th scope="row" id="r100">{{ p.partype}}</th>
+			<th scope="row" id="r100">{{ p.name }}</th>
+			<th scope="row" id="r100">{{ p.price }}</th>
+			<th scope="row" id="r100">{{ p.shop}}</th>
+			<th scope="row" id="r100">{{ p.properties }}</th>
+			<th scope="row" id="r100">{{ p.url }}</th>
+			<th scope="row" id="r100">{{ p.Mnum }}個</th>
+			<th scope="row" id="r100">{{ p.Hnum }}個</th>
+			<th scope="row" id="r100">{{ p.Nnum }}個</th>
+			<th scope="row" id="r100">{{ p.Wnum }}個</th>
+			<th scope="row" id="r100">{{ p.allneeds}}個</th>
+			<th scope="row" id="r100">{{ p.up_date }}</th>
+		</tr>
+		{% endfor %}
+		{% else %}
+		<p>I don't know anything about mechatronics.</p>
+		{% endif %}
 		</tbody>
 		</table>	
 
-
-{% if latest_part%}
-<ul>
-{% for p in latest_part %}
-<li>{{ p.name }},{{ p.properties }},{{p.Nnum}},{{ p.Hnum|add:p.Wnum|add:p.Nnum|add:p.Mnum }}, {{ p.allneeds }}</li>
-{% endfor %}
-</ul>
-{% else %}
-<p>I don't know anything about mechatronics.</p>
-{% endif %}
-test: <a href="http://localhost:8000/jukai/5"> hige </a>
+<a href="http://localhost:8000/jukai/5"> hige </a>
 </div>
 
 </body>
