@@ -27,17 +27,13 @@ def popular(request,length=10000):
 		)
 
 def editor(request,part_id):
-	partobj = Part.objects.get(id=part_id)
-	partobj.up_date=datetime.datetime.now()
 	if request.method == 'POST':
 		form = PartForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/jukai')
-		else:
-			return HttpResponseRedirect('/aaa')
-			
+			return HttpResponseRedirect('/hoge/')
 	else:
+		partobj = Part.objects.get(id=part_id)
 		form = PartForm(instance=partobj)
 	return render_to_response('html/om.html',
 		{'form' : form}
