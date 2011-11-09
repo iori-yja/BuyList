@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.forms import ModelForm
 
 parts_type = (
 	('st','Subtrace'),#基板
@@ -38,6 +39,10 @@ class Part(models.Model):
 		return self.Mnum+self.Hnum
 	def hurrycost(self):
 		return self.price*(self.hurryup())
+
+class PartForm(ModelForm):
+	class Meta:
+		model = Part
 
 from django.contrib import admin
 admin.site.register(Part)

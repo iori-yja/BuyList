@@ -7,6 +7,9 @@
 <body>
 <div id="inheader">
 	<div align="center">
+		<a href="/jukai/add">部品を追加する</a>
+		<a href="/jukai/new">新しい更新</a>
+		<a href="/jukai/pop">人気の部品</a>
 		検索
 		ログイン
 		<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
@@ -28,13 +31,13 @@
 			<th scope="col">値段</th>
 			<th scope="col">お店</th>
 			<th scope="col">Properties </th>
-			<th scope="col">サイト</th>
 			<th scope="col">今すぐに</th>
 			<th scope="col">急いで</th>
 			<th scope="col">そろそろ</th>
 			<th scope="col">いつでも</th>
 			<th scope="col">Sum </th>
 			<th scope="col">Lastupdated </th>
+			<th scope="col">Hoge</th>
 		</tr></thead>
 	<tbody>
 		{% if latest_part%}
@@ -42,15 +45,15 @@
 			<th scope="row" id="r100">{{ p.partype}}</th>
 			<th scope="row" id="r100">{{ p.name }}</th>
 			<th scope="row" id="r100">{{ p.price }}</th>
-			<th scope="row" id="r100">{{ p.shop}}</th>
+			<th scope="row" id="r100"><a href={{ p.url }}>{{ p.shop}}</a></th>
 			<th scope="row" id="r100">{{ p.properties }}</th>
-			<th scope="row" id="r100">{{ p.url }}</th>
 			<th scope="row" id="r100">{{ p.Mnum }}個</th>
 			<th scope="row" id="r100">{{ p.Hnum }}個</th>
 			<th scope="row" id="r100">{{ p.Nnum }}個</th>
 			<th scope="row" id="r100">{{ p.Wnum }}個</th>
 			<th scope="row" id="r100">{{ p.allneeds}}個</th>
 			<th scope="row" id="r100">{{ p.up_date }}</th>
+			<th scope="row" id="r100"><a href=/jukai/{{p.id}}>Go editting</a></th>
 		</tr>
 		{% endfor %}
 		{% else %}
@@ -58,8 +61,49 @@
 		{% endif %}
 		</tbody>
 		</table>	
+<a href="/jukai/add">部品を追加する</a>
+<pre>
 
-<a href="http://localhost:8000/jukai/5"> hige </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ia
+</pre>
 </div>
 
 </body>
