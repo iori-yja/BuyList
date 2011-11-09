@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+import datetime
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
 from jukai.invt.models import Part, PartForm
@@ -27,11 +28,15 @@ def popular(request,length=10000):
 
 def editor(request,part_id):
 	partobj = Part.objects.get(id=part_id)
+	partobj.up_date=datetime.datetime.now()
 	if request.method == 'POST':
-		form = PartForm(request.POST,partobj)
+		form = PartForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/jukai')
+		else:
+			return HttpResponseRedirect('/aaa')
+			
 	else:
 		form = PartForm(instance=partobj)
 	return render_to_response('html/om.html',
