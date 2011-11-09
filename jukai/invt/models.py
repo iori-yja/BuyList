@@ -43,6 +43,7 @@ class Part(models.Model):
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
+		exclude = ('up_date',)
 
 from django.contrib import admin
 admin.site.register(Part)

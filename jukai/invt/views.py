@@ -11,7 +11,7 @@ def index(request):
 		{'latest_part': latest_part})
 
 def update(request,length=10000):
-	latest_part = Part.objects.all().order_by('up_date')[:length]
+	latest_part = Part.objects.all().order_by('-up_date')[:length]
 	return render_to_response('html/hoge.html',
 		{'latest_part': latest_part,
 		'update': True,
@@ -19,7 +19,7 @@ def update(request,length=10000):
 		)
 
 def popular(request,length=10000):
-	latest_part = Part.objects.all().order_by('Hnum')[:length]
+	latest_part = Part.objects.all().order_by('-Hnum')[:length]
 	return render_to_response('html/hoge.html',
 		{'latest_part': latest_part,
 		'popular': True,
@@ -27,13 +27,14 @@ def popular(request,length=10000):
 		)
 
 def editor(request,part_id):
+	partobj = Part.objects.get(id=part_id)
 	if request.method == 'POST':
-		form = PartForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('/hoge/')
+		partobj.up_date=datetime.datetime.now()
+		update_partobj = PartForm(request.POST,instance=partobj)
+		if update_partobj.is_valid():
+			update_partobj.save()
+			return HttpResponseRedirect('/jukai')
 	else:
-		partobj = Part.objects.get(id=part_id)
 		form = PartForm(instance=partobj)
 	return render_to_response('html/om.html',
 		{'form' : form}
