@@ -1,0 +1,26 @@
+<html lang=ja>
+<head>
+	<title> 部品リスト{% if update %} 新着{{ length }}件 {% else %} {% if popular %} 人気 {% endif %} {% endif%} </title>
+	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
+	<link href="http://iorivr.dyndns.org/bluedream.css" rel=stylesheet type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://mplus-fonts.sourceforge.jp/webfonts/mplus_webfonts.css" />
+<body>
+<div id="inheader">
+	<div align="center">
+		<a href="/jukai/add">部品を追加する</a>
+		<a href="/jukai/new">新しい更新</a>
+		<a href="/jukai/pop">人気の部品</a>
+		検索
+		ログイン
+		<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
+	</div>
+</div>
+<div id="header" link="#ffffff" vlink="#000000" alink="#000000">
+	<div style="float:left;">
+	<div id="box1">物理部</div>
+	<div id="box2">電気部</div>
+	</div>
+	<div id="box3"><a href=/jukai style="color:white; text-decoration: none;">::買出しリスト</a>{% if update %}::新着{% else %}{% if popular %}::人気{% endif %}{% endif %}{% if length %}{{ length }}件{% endif %}</div>
+	<div id="sepx">menu|home|hoge|買出しリスト</div>
+</div>
+{% block main %}{% endblock %}
