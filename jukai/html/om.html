@@ -1,28 +1,8 @@
-<html lang=ja>
-<head>
-	<title> 部品リスト::注文</title>
-	<link href="http://iorivr.dyndns.org/fuga.css" rel=stylesheet type="text/css">
-	<link href="http://iorivr.dyndns.org/bluedream.css" rel=stylesheet type="text/css">
-	<link rel="stylesheet" type="text/css" href="http://mplus-fonts.sourceforge.jp/webfonts/mplus_webfonts.css" />
-<body>
-<div id="inheader">
-	<div align="center">
-		検索
-		ログイン
-		<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
-	</div>
-</div>
-<div id="header" link="#ffffff" vlink="#000000" alink="#000000">
-	<div style="float:left;">
-	<div id="box1">物理部</div>
-	<div id="box2">電気部</div>
-	</div>
-	<div id="box3"><a href=/jukai style="color:white; text-decoration: none;">::買出しリスト</a>::お願い
-	</div>
-	<div id="sepx">menu|home|hoge|買出しリスト</div>
-</div>
+{% extends "html/piyo.html" %}
+{% block main %}
 <div id="bod">
 <form method="POST" action="">
 	{{ form }}<br>
 <input type="submit" />
 </form>
+{% endblock %}

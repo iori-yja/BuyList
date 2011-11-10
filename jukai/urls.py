@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^jukai/pop/(\d+)','jukai.invt.views.popular'),
     url(r'^jukai/pop/','jukai.invt.views.popular'),
     url(r'^jukai/add/','jukai.invt.views.partadd'),
+    url(r'^login/$', 'django.contrib.auth.views.login',{'template_name':'html/lin.html'}),
 )

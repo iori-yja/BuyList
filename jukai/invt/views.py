@@ -1,4 +1,6 @@
 from django.shortcuts import render_to_response
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 import datetime
 from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect
@@ -27,35 +29,42 @@ def popular(request,length=10000):
 		)
 
 def editor(request,part_id):
-	partobj = Part.objects.get(id=part_id)
-	if request.method == 'POST':
-		partobj.up_date=datetime.datetime.now()
-		update_partobj = PartForm(request.POST,instance=partobj)
-		if update_partobj.is_valid():
-			update_partobj.save()
-			return HttpResponseRedirect('/jukai')
+	if request.user.is_authenticated():
+		partobj = Part.objects.get(id=part_id)
+		if request.method == 'POST':
+			partobj.up_date=datetime.datetime.now()
+			update_partobj = PartForm(request.POST,instance=partobj)
+			if update_partobj.is_valid():
+				update_partobj.save()
+				return HttpResponseRedirect('/jukai')
+			else:
+				return HttpResponseRedirect('/Oops')
 		else:
-			return HttpResponseRedirect('/Oops')
+			form = PartForm(instance=partobj)
+		return render_to_response('html/om.html',
+			{'form' : form}
+			)
 	else:
-		form = PartForm(instance=partobj)
-	return render_to_response('html/om.html',
-		{'form' : form}
-		)
+		return HttpResponseRedirect('/login')
 
 def partadd(request):
-	partobj = Part()
-	partobj.pub_date = datetime.datetime.now()
-	partobj.up_date = datetime.datetime.now()
-	if request.method == 'POST':
-		new_part = PartForm(request.POST,instance=partobj)
-		if new_part.is_valid():
-			new_part.save()
-			return HttpResponseRedirect('/jukai')
+	if request.user.is_authenticated():
+		partobj = Part()
+		partobj.pub_date = datetime.datetime.now()
+		partobj.up_date = datetime.datetime.now()
+		if request.method == 'POST':
+			new_part = PartForm(request.POST,instance=partobj)
+			if new_part.is_valid():
+				new_part.save()
+				return HttpResponseRedirect('/jukai')
+			else:
+				return HttpResponseRedirect('/Oops')
 		else:
-			return HttpResponseRedirect('/Oops')
+			form = PartForm()
+		return render_to_response('html/om.html',
+			{'form' : form}
+			)
 	else:
-		form = PartForm()
-	return render_to_response('html/om.html',
-		{'form' : form}
-		)
+		return HttpResponseRedirect('/login')
+
 

@@ -150,3 +150,6 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_REDIRECT_URL = "/jukai/new/"
+LOGIN_URL = "/login/"
