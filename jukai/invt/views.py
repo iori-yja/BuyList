@@ -34,18 +34,25 @@ def editor(request,part_id):
 		if update_partobj.is_valid():
 			update_partobj.save()
 			return HttpResponseRedirect('/jukai')
+		else:
+			return HttpResponseRedirect('/Oops')
 	else:
 		form = PartForm(instance=partobj)
 	return render_to_response('html/om.html',
 		{'form' : form}
 		)
 
-def form(request):
+def partadd(request):
+	partobj = Part()
+	partobj.pub_date = datetime.datetime.now()
+	partobj.up_date = datetime.datetime.now()
 	if request.method == 'POST':
-		form = PartForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('/')
+		new_part = PartForm(request.POST,instance=partobj)
+		if new_part.is_valid():
+			new_part.save()
+			return HttpResponseRedirect('/jukai')
+		else:
+			return HttpResponseRedirect('/Oops')
 	else:
 		form = PartForm()
 	return render_to_response('html/om.html',

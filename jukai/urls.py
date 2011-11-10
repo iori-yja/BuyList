@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^jukai/new/','jukai.invt.views.update'),
     url(r'^jukai/pop/(\d+)','jukai.invt.views.popular'),
     url(r'^jukai/pop/','jukai.invt.views.popular'),
-    url(r'^jukai/add/','jukai.invt.views.form'),
+    url(r'^jukai/add/','jukai.invt.views.partadd'),
 )

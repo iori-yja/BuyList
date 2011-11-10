@@ -26,7 +26,6 @@
 <div id="bod">
 <table summary="test">
 	<thead><tr>
-			<th scope="col">分類</th>
 			<th scope="col">種類</th>
 			<th scope="col">値段</th>
 			<th scope="col">お店</th>
@@ -37,12 +36,11 @@
 			<th scope="col">いつでも</th>
 			<th scope="col">Sum </th>
 			<th scope="col">Lastupdated </th>
-			<th scope="col">Hoge</th>
+			<th scope="col"></th>
 		</tr></thead>
 	<tbody>
 		{% if latest_part%}
 		<tr>{% for p in latest_part %}
-			<th scope="row" id="r100">{{ p.partype}}</th>
 			<th scope="row" id="r100">{{ p.name }}</th>
 			<th scope="row" id="r100">{{ p.price }}</th>
 			<th scope="row" id="r100"><a href={{ p.url }}>{{ p.shop}}</a></th>
@@ -53,7 +51,7 @@
 			<th scope="row" id="r100">{{ p.Wnum }}個</th>
 			<th scope="row" id="r100">{{ p.allneeds}}個</th>
 			<th scope="row" id="r100">{{ p.up_date }}</th>
-			<th scope="row" id="r100"><a href=/jukai/{{p.id}}>Go editting</a></th>
+			<th scope="row" id="r100"><a href=/jukai/{{p.id}}>Edit</a></th>
 		</tr>
 		{% endfor %}
 		{% else %}
