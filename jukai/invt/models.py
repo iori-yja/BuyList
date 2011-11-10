@@ -24,7 +24,7 @@ class Part(models.Model):
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
 	partype = models.CharField(max_length=2,choices=parts_type)#種別
-	adress = models.CharField(max_length=140,blank=True)#登録者のメールアドレス
+	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Hnum = models.IntegerField('Hurry')
@@ -43,7 +43,7 @@ class Part(models.Model):
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
-		exclude = ('up_date',)
+		exclude = ('up_date','pub_date',)
 
 from django.contrib import admin
 admin.site.register(Part)
