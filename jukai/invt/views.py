@@ -73,4 +73,11 @@ def partadd(request):
 	else:
 		return HttpResponseRedirect('/login')
 
+def delete(request, part_id):
+	if request.user.is_authenticated():
+		partobj = Part.objects.get(id=part_id)
+		partobj.delete()
+		return HttpResponseRedirect('/jukai')
+	else:
+		return HttpResponseRedirect('/Oops')
 
