@@ -15,15 +15,19 @@ parts_type = (
 	('ot','otherparts'),#Other parts
 )
 
+class resister(models.Model):
+	part_type = models.CharField(max_length=2,choices=parts_type)#種別
+	watt = models.IntegerField()
+	ohm =  models.IntegerField()
+	pay_by_school = models.BooleanField()#部費か?
+
 class Part(models.Model):
 	pub_date = models.DateTimeField('date published')
 	up_date = models.DateTimeField('date updated')
-	pay_by_school = models.BooleanField()#部費か?
 	price = models.IntegerField()
 	shop = models.CharField(max_length=20)
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
-	partype = models.CharField(max_length=2,choices=parts_type)#種別
 	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
