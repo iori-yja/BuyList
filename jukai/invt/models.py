@@ -65,12 +65,14 @@ class Part (models.Model):
 	shop = models.CharField(max_length=20)
 	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
 	url = models.CharField(max_length=400,blank=True)#注意書きや解説記事へのリファレンス
+	pay_by_school = models.BooleanField()#部費か?
+	def __unicode__(self):
+		return self.name
 
 class Req(models.Model):
 	partype = models.ForeignKey(Part)
 	pub_date = models.DateTimeField('date published')
 	up_date = models.DateTimeField('date updated')
-	pay_by_school = models.BooleanField()#部費か?
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Anum = models.IntegerField('Hurry')
@@ -86,7 +88,7 @@ class Req(models.Model):
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
-class reqForm(ModelForm):
+class ReqForm(ModelForm):
 	class Meta:
 		model = Req
 		exclude = ('up_date','pub_date',)

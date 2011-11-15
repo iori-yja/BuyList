@@ -106,6 +106,28 @@ def partadd(request):
 	else:
 		return HttpResponseRedirect('/login')
 
+def request(request,part_id):
+	if request.user.is_authenticated():
+		reqobj = Req()
+		reqobj.partype = Part.objects.get(id=part_id)
+		reqobj.pub_date = datetime.datetime.now()
+		reqobj.up_date = datetime.datetime.now()
+		if request.method == 'POST':
+			req = PartForm(request.POST,instance=reqobj)
+			if req.is_valid():
+				req.save()
+				return HttpResponseRedirect('/jukai')
+			else:
+				return HttpResponseRedirect('/Oops')
+		else:
+			form = ReqForm(instance=reqobj)
+		return render_to_response('html/om.html',
+			{'form' : form},
+			context_instance=RequestContext(request)
+			)
+	else:
+		return HttpResponseRedirect('/login')
+
 #def delete(request, part_id):
 #	if request.user.is_authenticated():
 #		partobj = Part.objects.get(id=part_id)
