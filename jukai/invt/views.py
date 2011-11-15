@@ -24,7 +24,7 @@ class Parter:
 			self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
 			self.Clevneeds  = reduce( lambda x,y:x+y, [ req.Cnum for req in all_req ] )
 		else:
-			self.allneeds  = 1000
+			self.allneeds  = 0
 			self.Mlevneeds = 0
 			self.Alevneeds = 0
 			self.Blevneeds = 0
