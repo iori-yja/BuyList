@@ -2,18 +2,13 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import datetime
+import operator
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from jukai.invt.models import *
 from django.http import HttpResponse
 
-def index(request):
-	latest_part_list = Part.objects.all().order_by('id')[:1000]
-	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
-	return render_to_response('html/hoge.html',
-		{'needs': nee},
-		context_instance=RequestContext(request))
 
 class Parter:
 	def __init__(self, latest_part):
@@ -46,6 +41,13 @@ class Nudes:
 		self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
 		self.Clevneeds  = reduce( lambda x,y:x+y, [ req.Cnum for req in all_req ] )
 
+def index(request):
+	latest_part_list = Part.objects.all().order_by('id')[:1000]
+	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
+	return render_to_response('html/hoge.html',
+		{'needs': nee},
+		context_instance=RequestContext(request))
+
 def update(request,length=10000):
 	latest_req_list = Req.objects.all().order_by('-up_date')[:length]
 	nee = [ Nudes(latest_req) for latest_req in latest_req_list ]
@@ -56,15 +58,16 @@ def update(request,length=10000):
 		context_instance=RequestContext(request)
 		)
 
-#def popular(request,length=10000):
-#	latest_part = Part.objects.all().order_by('-Hnum')[:length]
-#	return render_to_response('html/hoge.html',
-#		{'latest_part': latest_part,
-#		'popular': True,
-#		'length': length},
-#		context_instance=RequestContext(request)
-#		)
-#
+def popular(request,length=10000):
+	latest_part_list = Part.objects.all().order_by('id')[:1000]
+	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
+	new = sorted(nee,key=operator.attrgetter('allneeds'))
+	return render_to_response('html/hoge.html',
+		{'needs': new,
+		'update': True,
+		'length': length},
+		context_instance=RequestContext(request)
+		)
 def editor(request,part_id):
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
