@@ -18,7 +18,7 @@ class Parter:
 		if all_req:	self.up_date = all_req[0].up_date
 		else:		self.up_date = 'Not yet'
 		if self.latest_part.req_set.all()[:10]:
-			self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds for req in all_req ] )
+			self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds() for req in all_req ] )
 			self.Mlevneeds = reduce( lambda x,y:x+y, [ req.Mnum for req in all_req ] )
 			self.Alevneeds  = reduce( lambda x,y:x+y, [ req.Anum for req in all_req ] )
 			self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
@@ -35,7 +35,7 @@ class Nudes:
 		self.latest_part = latest_req.partype
 		self.up_date = latest_req.up_date
 		all_req = self.latest_part.req_set.all()
-		self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds for req in all_req ] )
+		self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds() for req in all_req ] )
 		self.Mlevneeds = reduce( lambda x,y:x+y, [ req.Mnum for req in all_req ] )
 		self.Alevneeds  = reduce( lambda x,y:x+y, [ req.Anum for req in all_req ] )
 		self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
