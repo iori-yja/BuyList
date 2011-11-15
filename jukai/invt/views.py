@@ -116,12 +116,12 @@ def request(request,part_id):
 		reqobj.pub_date = datetime.datetime.now()
 		reqobj.up_date = datetime.datetime.now()
 		if request.method == 'POST':
-			req = PartForm(request.POST,instance=reqobj)
-			if req.is_valid():
-				req.save()
+			update_req = ReqForm(request.POST,instance=reqobj)
+			if update_req.is_valid():
+				update_req.save()
 				return HttpResponseRedirect('/jukai')
 			else:
-				return HttpResponseRedirect('/Oops')
+				form=update_req.errors
 		else:
 			form = ReqForm(instance=reqobj)
 		return render_to_response('html/om.html',
@@ -131,7 +131,7 @@ def request(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
-#def delete(request, part_id):
+#def delete(request,kind,id):
 #	if request.user.is_authenticated():
 #		partobj = Part.objects.get(id=part_id)
 #		partobj.delete()
