@@ -27,7 +27,8 @@
 			<th scope="row" id="r100">{{ n.Blevneeds }}個</th>
 			<th scope="row" id="r100">{{ n.Clevneeds }}個</th>
 			<th scope="row" id="r100">{{ n.allneeds }}個</th>
-			<th scope="row" id="r100">{{ n.latest_part.up_date }}</th>
+			<th scope="row" id="r100">{{ n.up_date }}</th>
+			<th scope="row" id="r100"><a href=/jukai/{{n.latest_part.id}}>Edit</a></th>
 		</tr>
 		{% endfor %}
 		{% else %}
