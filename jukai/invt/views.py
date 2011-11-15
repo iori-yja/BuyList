@@ -5,79 +5,100 @@ import datetime
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from jukai.invt.models import Part, PartForm
+from jukai.invt.models import *
 from django.http import HttpResponse
 
 def index(request):
-	latest_part = Part.objects.all().order_by('id')[:1000]
+	latest_part = part.objects.all().order_by('id')[:1000]
 	return render_to_response('html/hoge.html',
 		{'latest_part': latest_part},
 		context_instance=RequestContext(request))
 
+class Needs:
+	def __init__(self, latest_req):
+		self.latest_part = [req.partype for req in latest_req]
+		self.all_req = [ part.req_set.all() for part in self.latest_part]
+		self.allneeds   = [ reduce( lambda x,y:x+y, [ req.allneeds for req in areq ] ) for areq in self.all_req ]
+		self.Immedneeds = [ reduce( lambda x,y:x+y, [ req.Mnum for req in areq ] ) for areq in self.all_req ]
+		self.Alevneeds  = [ reduce( lambda x,y:x+y, [ req.Anum for req in areq ] ) for areq in self.all_req ]
+		self.Blevneeds  = [ reduce( lambda x,y:x+y, [ req.Bnum for req in areq ] ) for areq in self.all_req ]
+		self.Clevneeds  = [ reduce( lambda x,y:x+y, [ req.Cnum for req in areq ] ) for areq in self.all_req ]
+
+class Nudes:
+	def __init__(self, latest_req):
+		self.latest_part = latest_req.partype
+		all_req = self.latest_part.req_set.all()
+		self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds for req in all_req ] )
+		self.Mlevneeds = reduce( lambda x,y:x+y, [ req.Mnum for req in all_req ] )
+		self.Alevneeds  = reduce( lambda x,y:x+y, [ req.Anum for req in all_req ] )
+		self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
+		self.Clevneeds  = reduce( lambda x,y:x+y, [ req.Cnum for req in all_req ] )
+
 def update(request,length=10000):
-	latest_part = Part.objects.all().order_by('-up_date')[:length]
+	latest_req_list = Req.objects.all().order_by('-up_date')[:length]
+	nee = [ Nudes(latest_req) for latest_req in latest_req_list ]
 	return render_to_response('html/hoge.html',
-		{'latest_part': latest_part,
+		{'needs': nee,
 		'update': True,
 		'length': length},
 		context_instance=RequestContext(request)
 		)
 
-def popular(request,length=10000):
-	latest_part = Part.objects.all().order_by('-Hnum')[:length]
-	return render_to_response('html/hoge.html',
-		{'latest_part': latest_part,
-		'popular': True,
-		'length': length},
-		context_instance=RequestContext(request)
-		)
-
-def editor(request,part_id):
-	if request.user.is_authenticated():
-		partobj = Part.objects.get(id=part_id)
-		if request.method == 'POST':
-			partobj.up_date=datetime.datetime.now()
-			update_partobj = PartForm(request.POST,instance=partobj)
-			if update_partobj.is_valid():
-				update_partobj.save()
-				return HttpResponseRedirect('/jukai')
-			else:
-				return HttpResponseRedirect('/Oops')
-		else:
-			form = PartForm(instance=partobj)
-		return render_to_response('html/om.html',
-			{'form' : form},
-			context_instance=RequestContext(request)
-			)
-	else:
-		return HttpResponseRedirect('/login')
-
-def partadd(request):
-	if request.user.is_authenticated():
-		partobj = Part()
-		partobj.pub_date = datetime.datetime.now()
-		partobj.up_date = datetime.datetime.now()
-		if request.method == 'POST':
-			new_part = PartForm(request.POST,instance=partobj)
-			if new_part.is_valid():
-				new_part.save()
-				return HttpResponseRedirect('/jukai')
-			else:
-				return HttpResponseRedirect('/Oops')
-		else:
-			form = PartForm()
-		return render_to_response('html/om.html',
-			{'form' : form},
-			context_instance=RequestContext(request)
-			)
-	else:
-		return HttpResponseRedirect('/login')
-
-def delete(request, part_id):
-	if request.user.is_authenticated():
-		partobj = Part.objects.get(id=part_id)
-		partobj.delete()
-		return HttpResponseRedirect('/jukai')
-	else:
-		return HttpResponseRedirect('/Oops')
-
+#def popular(request,length=10000):
+#	latest_part = Part.objects.all().order_by('-Hnum')[:length]
+#	return render_to_response('html/hoge.html',
+#		{'latest_part': latest_part,
+#		'popular': True,
+#		'length': length},
+#		context_instance=RequestContext(request)
+#		)
+#
+#def editor(request,part_id):
+#	if request.user.is_authenticated():
+#		partobj = Part.objects.get(id=part_id)
+#		if request.method == 'POST':
+#			partobj.up_date=datetime.datetime.now()
+#			update_partobj = PartForm(request.POST,instance=partobj)
+#			if update_partobj.is_valid():
+#				update_partobj.save()
+#				return HttpResponseRedirect('/jukai')
+#			else:
+#				return HttpResponseRedirect('/Oops')
+#		else:
+#			form = PartForm(instance=partobj)
+#		return render_to_response('html/om.html',
+#			{'form' : form},
+#			context_instance=RequestContext(request)
+#			)
+#	else:
+#		return HttpResponseRedirect('/login')
+#
+#def partadd(request):
+#	if request.user.is_authenticated():
+#		partobj = Part()
+#		partobj.pub_date = datetime.datetime.now()
+#		partobj.up_date = datetime.datetime.now()
+#		if request.method == 'POST':
+#			new_part = PartForm(request.POST,instance=partobj)
+#			if new_part.is_valid():
+#				new_part.save()
+#				return HttpResponseRedirect('/jukai')
+#			else:
+#				return HttpResponseRedirect('/Oops')
+#		else:
+#			form = PartForm()
+#		return render_to_response('html/om.html',
+#			{'form' : form},
+#			context_instance=RequestContext(request)
+#			)
+#	else:
+#		return HttpResponseRedirect('/login')
+#
+#def delete(request, part_id):
+#	if request.user.is_authenticated():
+#		partobj = Part.objects.get(id=part_id)
+#		partobj.delete()
+#		return HttpResponseRedirect('/jukai')
+#	else:
+#		return HttpResponseRedirect('/Oops')
+#

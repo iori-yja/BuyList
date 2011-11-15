@@ -16,19 +16,18 @@
 			<th scope="col"></th>
 		</tr></thead>
 	<tbody>
-		{% if latest_part%}
-		<tr>{% for p in latest_part %}
-			<th scope="row" id="r100">{{ p.name }}</th>
-			<th scope="row" id="r100">{{ p.price }}</th>
-			<th scope="row" id="r100"><a href={{ p.url }}>{{ p.shop}}</a></th>
-			<th scope="row" id="r100">{{ p.properties }}</th>
-			<th scope="row" id="r100">{{ p.Mnum }}個</th>
-			<th scope="row" id="r100">{{ p.Hnum }}個</th>
-			<th scope="row" id="r100">{{ p.Nnum }}個</th>
-			<th scope="row" id="r100">{{ p.Wnum }}個</th>
-			<th scope="row" id="r100">{{ p.allneeds}}個</th>
-			<th scope="row" id="r100">{{ p.up_date }}</th>
-			<th scope="row" id="r100"><a href=/jukai/{{p.id}}>Edit</a></th>
+		{% if needs %}
+		<tr>{% for n in needs %}
+			<th scope="row" id="r100">{{ n.latest_part.name }}</th>
+			<th scope="row" id="r100">{{ n.latest_part.price }}</th>
+			<th scope="row" id="r100"><a href={{ p.url }}>{{ p.latest_part.shop}}</a></th>
+			<th scope="row" id="r100">{{ n.latest_part.properties }}</th>
+			<th scope="row" id="r100">{{ n.Mlevneeds }}個</th>
+			<th scope="row" id="r100">{{ n.Alevneeds }}個</th>
+			<th scope="row" id="r100">{{ n.Blevneeds }}個</th>
+			<th scope="row" id="r100">{{ n.Clevneeds }}個</th>
+			<th scope="row" id="r100">{{ n.allneeds }}個</th>
+			<th scope="row" id="r100">{{ n.latest_part.up_date }}</th>
 		</tr>
 		{% endfor %}
 		{% else %}
