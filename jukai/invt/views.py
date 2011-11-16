@@ -41,6 +41,13 @@ class Nudes:
 		self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
 		self.Clevneeds  = reduce( lambda x,y:x+y, [ req.Cnum for req in all_req ] )
 
+def reqs(request):
+	latest_part_list = Req.objects.all().order_by('-up_date')
+	nee = [ Nudes(latest_part) for latest_part in latest_part_list ]
+	return render_to_response('html/hoge.html',
+		{'needs': nee},
+		context_instance=RequestContext(request))
+
 def index(request):
 	latest_part_list = Part.objects.all().order_by('id')[:1000]
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
@@ -48,7 +55,7 @@ def index(request):
 		{'needs': nee},
 		context_instance=RequestContext(request))
 
-def update(request,length=10000):
+def new(request,length=10000):
 	latest_req_list = Req.objects.all().order_by('-up_date')[:length]
 	nee = [ Nudes(latest_req) for latest_req in latest_req_list ]
 	return render_to_response('html/hoge.html',
