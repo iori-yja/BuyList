@@ -71,8 +71,8 @@ class Part (models.Model):
 
 class Req(models.Model):
 	partype = models.ForeignKey(Part)
-	pub_date = models.DateTimeField('date published')
-	up_date = models.DateTimeField('date updated')
+	pub_date = models.DateTimeField(auto_now=True,auto_now_add=True)
+	up_date = models.DateTimeField(auto_now=True,auto_now_add=False)
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Anum = models.IntegerField('Hurry')
@@ -85,6 +85,9 @@ class Req(models.Model):
 	def hurrycost(self):
 		return self.price*(self.hurryup())
 
+class Butsutsu(ModelForm):
+	user = models.EmailField(max_length=140)
+	post = models.TextField()
 class PartForm(ModelForm):
 	class Meta:
 		model = Part

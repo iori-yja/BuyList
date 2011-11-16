@@ -41,9 +41,19 @@ class Nudes:
 		self.Blevneeds  = reduce( lambda x,y:x+y, [ req.Bnum for req in all_req ] )
 		self.Clevneeds  = reduce( lambda x,y:x+y, [ req.Cnum for req in all_req ] )
 
-def reqs(request):
-	latest_part_list = Req.objects.all().order_by('-up_date')
-	nee = [ Nudes(latest_part) for latest_part in latest_part_list ]
+class Reqlist:
+	def __init__(self, latest_req):
+		self.latest_part = latest_req.partype
+		self.up_date = latest_req.up_date
+		self.allneeds   = latest_req.allneeds   
+		self.Mlevneeds  = latest_req.Mnum  
+		self.Alevneeds  = latest_req.Anum  
+		self.Blevneeds  = latest_req.Bnum  
+		self.Clevneeds  = latest_req.Cnum  
+
+def listreqs(request):
+	latest_req_list = Req.objects.all().order_by('-up_date')
+	nee = [ Reqlist(latest_req) for latest_req in latest_req_list ]
 	return render_to_response('html/hoge.html',
 		{'needs': nee},
 		context_instance=RequestContext(request))
@@ -55,9 +65,11 @@ def index(request):
 		{'needs': nee},
 		context_instance=RequestContext(request))
 
+
 def new(request,length=10000):
 	latest_req_list = Req.objects.all().order_by('-up_date')[:length]
 	nee = [ Nudes(latest_req) for latest_req in latest_req_list ]
+	nee = reduce( lambda xs,y: xs if filter(lambda x:x.latest_part==y.latest_part,xs) else xs+[y], nee, [])
 	return render_to_response('html/hoge.html',
 		{'needs': nee,
 		'update': True,
@@ -79,7 +91,6 @@ def editor(request,part_id):
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
 		if request.method == 'POST':
-			partobj.up_date=datetime.datetime.now()
 			update_partobj = PartForm(request.POST,instance=partobj)
 			if update_partobj.is_valid():
 				update_partobj.save()
@@ -98,8 +109,6 @@ def editor(request,part_id):
 def partadd(request):
 	if request.user.is_authenticated():
 		partobj = Part()
-		partobj.pub_date = datetime.datetime.now()
-		partobj.up_date = datetime.datetime.now()
 		if request.method == 'POST':
 			new_part = PartForm(request.POST,instance=partobj)
 			if new_part.is_valid():
@@ -120,8 +129,6 @@ def request(request,part_id):
 	if request.user.is_authenticated():
 		reqobj = Req()
 		reqobj.partype = Part.objects.get(id=part_id)
-		reqobj.pub_date = datetime.datetime.now()
-		reqobj.up_date = datetime.datetime.now()
 		if request.method == 'POST':
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
