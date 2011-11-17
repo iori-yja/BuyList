@@ -65,6 +65,7 @@ class Requlater(Part):
 	partnum = models.CharField(max_length=20)
 	volt    = models.IntegerField(blank=True)
 class Subtrace(Part):
+	bdsize  = models.CharField(max_length=20)
 	partype = models.CharField(max_length=20)
 class Connector(Part):
 	partype = models.CharField(max_length=200)

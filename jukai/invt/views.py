@@ -103,15 +103,13 @@ def editor(request,part_id):
 		else:
 			form = PartForm(instance=partobj)
 		return render_to_response('html/om.html',
-			{'form' : form,
-			'sp': partobj.species,
-			'decent' : partobj.species.decent},
+			{'form' : form,},
 			context_instance=RequestContext(request)
 			)
 	else:
 		return HttpResponseRedirect('/login')
 
-def partadd(request):
+def partadd(request,sp='none'):
 	if request.user.is_authenticated():
 		partobj = Part()
 		if request.method == 'POST':
@@ -122,11 +120,16 @@ def partadd(request):
 			else:
 				return HttpResponseRedirect('/Oops')
 		else:
-			form = PartForm()
-		return render_to_response('html/om.html',
-			{'form' : form},
-			context_instance=RequestContext(request)
-			)
+			if sp == 'none':
+				return render_to_response('html/addchoice.html',
+					context_instance=RequestContext(request)
+					)
+			else:
+				form = getform(sp)
+				return render_to_response('html/om.html',
+					{'form' : form},
+					context_instance=RequestContext(request)
+					)
 	else:
 		return HttpResponseRedirect('/login')
 

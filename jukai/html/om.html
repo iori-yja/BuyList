@@ -10,7 +10,6 @@
 	<thead><tr>
 			<th scope="col">名前</th>
 			<th scope="col">Properties </th>
-			{% if decent %}{% else %}<th scope="col">形状</th>{% endif %}
 			<th scope="col">値段</th>
 			<th scope="col">お店</th>
 			<th scope="col">参考url</th>
@@ -61,7 +60,6 @@
 </td>
 	{% else %}
 	常識にそって</td>
-	<td>{{ form.species }}</td>
 	{% endif %}
 	<td>{{ form.price }}</td>
 	<td>{{ form.shop }}</td>

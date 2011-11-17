@@ -1,0 +1,43 @@
+{% extends "html/piyo.html" %}
+{% block main %}
+decent_spp = (
+	('wiring','wiring'),
+	('resistor','resistor'),
+	('capacitor','capacitor'),
+	('motor','motor'),
+	('mcu','mcu'),
+	('material','material'),
+	('motor_driver','motor_driver'),
+	('switch','switch'),
+	('regulater','regulater'),
+	('subtrace','subtrace'),
+	('connector','connector'),
+	('other','otherelectorical parts'),
+)486384
+<div id="container">
+	<div id="sheet">
+		<div style="float:left">
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add/resis">抵抗器</a></div>
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add/wire">配線系で線状<br>はんだ、錫メッキなど</a></div>
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add/resis">レギュレータ(3端子など)</a></div>
+		</div>
+		<div style="float:left">
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add/motor">モータ</a></div>
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add/capas">コンデンサ</a></div>
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add/motor">基板</a></div>
+		</div>
+		<div style="float:left">
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add">モータドライバ</a></div>
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add">スイッチ</a></div>
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add">その他</a></div>
+		</div>
+		<div style="float:left">
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add">車体材料</a></div>
+			<div class="littlebox" style="background:#486384"><a href="/jukai/add/mcu">マイコン</a></div>
+			<div class="littlebox" style="background:#488463"><a href="/jukai/add">コネクタ</a></div>
+		</div>
+</div></div>
+
+</body>
+
+{% endblock %}
