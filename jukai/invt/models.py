@@ -35,32 +35,11 @@ class Sp (models.Model):
 	decent = models.CharField(max_length=12,choices=decent_spp)
 	def __unicode__(self):
 		return self.decent
-##	def sptype(self):
-#		if self.decent == 'wiring':
-#			return 'wiring'
-#		elif self.decent == 'resistor':
-#			return 'resistor'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
-#		elif self.decent ==  '':
-#			return 'wiring'
 
 class Part (models.Model):
-	species = models.ForeignKey(Sp)
 	name = models.CharField(max_length=20)
 	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
+	species = models.ForeignKey(Sp)
 	price = models.IntegerField()
 	shop = models.CharField(max_length=20)
 	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
@@ -68,6 +47,10 @@ class Part (models.Model):
 	pay_by_school = models.BooleanField()#部費か?
 	def __unicode__(self):
 		return self.name
+
+class Resiso(Part):
+	hoge = models.CharField(max_length=20)
+
 
 class Req(models.Model):
 	partype = models.ForeignKey(Part)
@@ -100,4 +83,5 @@ from django.contrib import admin
 admin.site.register(Part)
 admin.site.register(Req)
 admin.site.register(Sp)
+admin.site.register(Resis)
 
