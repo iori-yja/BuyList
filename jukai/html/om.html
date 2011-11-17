@@ -2,8 +2,72 @@
 {% block main %}
 <div id="container">
 	<div id="sheet">
+		{{ sp }}
+		{% if debug %}
+		{{ bug }}
+		{% endif %}
+<table summary="test">
+	<thead><tr>
+			<th scope="col">名前</th>
+			<th scope="col">Properties </th>
+			{% if decent %}{% else %}<th scope="col">形状</th>{% endif %}
+			<th scope="col">値段</th>
+			<th scope="col">お店</th>
+			<th scope="col">参考url</th>
+		</tr></thead>
+	<tbody>
 <form method="POST" action="">
-	{{ form }}<br>
+<tr class="odd">
+<th scope="row" class="column1">
+	{{ form.name }}</th>
+<td>{{ form.properties }}
+	{% if decent %}
+	{% ifequal decent "wiring" %}
+	|太さ,長さ|
+	{% endifequal%}
+	{% ifequal decent "resistor" %}
+	|抵抗値,ワット数|
+	{% endifequal%}
+	{% ifequal decent "capacitor" %}
+	|容量,耐圧|
+	{% endifequal%}
+	{% ifequal decent "motor" %}
+	|型番,(メーカ)|
+	{% endifequal%}
+	{% ifequal decent "material" %}
+	|材質,形状|
+	{% endifequal%}
+	{% ifequal decent "mcu" %}
+	|型番|
+	{% endifequal%}
+	{% ifequal decent "motor_driver" %}
+	|型番|
+	{% endifequal%}
+	{% ifequal decent "switch" %}
+	|接点数,形状|
+	{% endifequal%}
+	{% ifequal decent "regulater" %}
+	|電圧,もしくは型番|
+	{% endifequal%}
+	{% ifequal decent "subtrace" %}
+	|基板のおおきさ|
+	{% endifequal%}
+	{% ifequal decent "connector" %}
+	|種類|
+	{% endifequal%}
+	{% ifequal decent "other" %}
+	わかりやすく
+	{% endifequal%}
+</td>
+	{% else %}
+	常識にそって</td>
+	<td>{{ form.species }}</td>
+	{% endif %}
+	<td>{{ form.price }}</td>
+	<td>{{ form.shop }}</td>
+	<td>{{ form.url }}</td>
+	<td>{{ form.pay_by_school }}</td>
 <input type="submit" />
 </form>
+	{{ decent }}
 {% endblock %}

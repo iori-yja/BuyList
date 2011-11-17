@@ -96,11 +96,16 @@ def editor(request,part_id):
 				update_partobj.save()
 				return HttpResponseRedirect('/jukai')
 			else:
-				return HttpResponseRedirect('/Oops')
+				return render_to_response('html/om.html',
+					{'bug': update_partobj,
+					'debug' : True},
+					context_instance=RequestContext(request))
 		else:
 			form = PartForm(instance=partobj)
 		return render_to_response('html/om.html',
-			{'form' : form},
+			{'form' : form,
+			'sp': partobj.species,
+			'decent' : partobj.species.decent},
 			context_instance=RequestContext(request)
 			)
 	else:

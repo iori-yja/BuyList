@@ -32,7 +32,7 @@ decent_spp = (
 
 
 class Sp (models.Model):
-	decent = models.CharField(max_length=10,choices=decent_spp)
+	decent = models.CharField(max_length=12,choices=decent_spp)
 	def __unicode__(self):
 		return self.decent
 ##	def sptype(self):
