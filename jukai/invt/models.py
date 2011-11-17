@@ -30,16 +30,8 @@ decent_spp = (
 	('other','otherelectorical parts'),
 )
 
-
-class Sp (models.Model):
-	decent = models.CharField(max_length=12,choices=decent_spp)
-	def __unicode__(self):
-		return self.decent
-
 class Part (models.Model):
 	name = models.CharField(max_length=20)
-	properties = models.CharField(max_length=140)#型番や属性(抵抗値とか)
-	species = models.ForeignKey(Sp)
 	price = models.IntegerField()
 	shop = models.CharField(max_length=20)
 	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
@@ -48,9 +40,36 @@ class Part (models.Model):
 	def __unicode__(self):
 		return self.name
 
-class Resiso(Part):
-	hoge = models.CharField(max_length=20)
-
+class Resistor(Part):
+	ohm  = models.IntegerField()
+	watt = models.IntegerField()
+class Wiring(Part):
+	partype = models.CharField(max_length=20)
+	phi     = models.IntegerField()
+	length  = models.IntegerField()
+class Capasitor(Part):
+	partype = models.CharField(max_length=20,blank=True)
+	volt    = models.IntegerField()
+	farad   = models.IntegerField()
+class Motor(Part):
+	partype = models.CharField(max_length=200)
+class Mcu(Part):
+	partype = models.CharField(max_length=30)
+class Material(Part):
+	partype = models.CharField(max_length=200)
+class Motor_driver(Part):
+	partype = models.CharField(max_length=20)
+class Switch(Part):
+	partype = models.CharField(max_length=20)
+class Requlater(Part):
+	partnum = models.CharField(max_length=20)
+	volt    = models.IntegerField(blank=True)
+class Subtrace(Part):
+	partype = models.CharField(max_length=20)
+class Connector(Part):
+	partype = models.CharField(max_length=200)
+class Other(Part):
+	partype = models.CharField(max_length=200)
 
 class Req(models.Model):
 	partype = models.ForeignKey(Part)
@@ -82,6 +101,15 @@ class ReqForm(ModelForm):
 from django.contrib import admin
 admin.site.register(Part)
 admin.site.register(Req)
-admin.site.register(Sp)
-admin.site.register(Resis)
-
+admin.site.register(Resistor)
+admin.site.register(Wiring)
+admin.site.register(Capasitor)
+admin.site.register(Motor)
+admin.site.register(Mcu)
+admin.site.register(Material)
+admin.site.register(Motor_driver)
+admin.site.register(Switch)
+admin.site.register(Requlater)
+admin.site.register(Subtrace)
+admin.site.register(Connector)
+admin.site.register(Other)
