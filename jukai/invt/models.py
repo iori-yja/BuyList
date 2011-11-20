@@ -61,7 +61,7 @@ class Motor_driver(Part):
 	partype = models.CharField(max_length=20)
 class Switch(Part):
 	partype = models.CharField(max_length=20)
-class Requlater(Part):
+class Regulater(Part):
 	partnum = models.CharField(max_length=20)
 	volt    = models.IntegerField(blank=True)
 class Subtrace(Part):
@@ -99,6 +99,43 @@ class ReqForm(ModelForm):
 		model = Req
 		exclude = ('up_date','pub_date',)
 
+class ResistorForm(ModelForm):
+	class Meta:
+		model = Resistor
+class WiringForm(ModelForm):
+	class Meta:
+		model = Wiring
+class CapasitorForm(ModelForm):
+	class Meta:
+		model = Capasitor
+class MotorForm(ModelForm):
+	class Meta:
+		model = Motor
+class McuForm(ModelForm):
+	class Meta:
+		model = Mcu
+class MaterialForm(ModelForm):
+	class Meta:
+		model = Material
+class Motor_driverForm(ModelForm):
+	class Meta:
+		model = Motor_driver
+class SwitchForm(ModelForm):
+	class Meta:
+		model = Switch
+class RegulaterForm(ModelForm):
+	class Meta:
+		model = Regulater
+class SubtraceForm(ModelForm):
+	class Meta:
+		model = Subtrace
+class ConnectorForm(ModelForm):
+	class Meta:
+		model = Connector
+class OtherForm(ModelForm):
+	class Meta:
+		model = Other
+
 from django.contrib import admin
 admin.site.register(Part)
 admin.site.register(Req)
@@ -110,7 +147,7 @@ admin.site.register(Mcu)
 admin.site.register(Material)
 admin.site.register(Motor_driver)
 admin.site.register(Switch)
-admin.site.register(Requlater)
+admin.site.register(Regulater)
 admin.site.register(Subtrace)
 admin.site.register(Connector)
 admin.site.register(Other)

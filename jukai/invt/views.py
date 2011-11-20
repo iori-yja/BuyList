@@ -109,9 +109,63 @@ def editor(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
+def getform(sp):
+	if( sp == 'resis'):
+		Form = ResistorForm()
+	if( sp == 'wire '):
+		Form = WiringForm()
+	if( sp == 'motor'):
+		Form = MotorForm()
+	if( sp == 'capas'):
+		Form = CapasitorForm()
+	if( sp == 'motod'):
+		Form = Motor_driverForm()
+	if( sp == 'switch'):
+		Form = SwitchForm()
+	if( sp == 'reg'):
+		Form = RegulaterForm()
+	if( sp == 'mat'):
+		Form = MaterialForm()
+	if( sp == 'subt'):
+		Form = SubtraceForm()
+	if( sp == 'mcu'):
+		Form = McuForm()
+	if( sp == 'con'):
+		Form = ConnectorForm()
+	if( sp == 'other'):
+		Form = OtherForm()
+	return Form
+
+def getobj(sp):
+	if( sp == 'resis'):
+		obj = Resistor()
+	if( sp == 'wire '):
+		obj = Wiring()
+	if( sp == 'motor'):
+		obj = Motor()
+	if( sp == 'capas'):
+		obj = Capasitor()
+	if( sp == 'motod'):
+		obj = Motor_driver()
+	if( sp == 'switch'):
+		obj = Switch()
+	if( sp == 'reg'):
+		obj = Regulater()
+	if( sp == 'mat'):
+		obj = Material()
+	if( sp == 'subt'):
+		obj = Subtrace()
+	if( sp == 'mcu'):
+		obj = Mcu()
+	if( sp == 'con'):
+		obj = Connector()
+	if( sp == 'other'):
+		obj = Other()
+	return obj
+
 def partadd(request,sp='none'):
 	if request.user.is_authenticated():
-		partobj = Part()
+		partobj = getobj(sp)
 		if request.method == 'POST':
 			new_part = PartForm(request.POST,instance=partobj)
 			if new_part.is_valid():
