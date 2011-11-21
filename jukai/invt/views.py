@@ -167,7 +167,7 @@ def partadd(request,sp='none'):
 	if request.user.is_authenticated():
 		partobj = getobj(sp)
 		if request.method == 'POST':
-			new_part = PartForm(request.POST,instance=partobj)
+			new_part = PartForm(request.POST,instance=partobj)#-------------
 			if new_part.is_valid():
 				new_part.save()
 				return HttpResponseRedirect('/jukai')
