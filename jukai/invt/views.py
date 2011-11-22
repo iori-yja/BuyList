@@ -138,29 +138,29 @@ def getform(sp):
 
 def getformwitharg(sp,*arg,**kwarg):
 	if( sp == 'resis'):
-		Form = ResistorForm(arg,**kwarg)
+		Form = ResistorForm(*arg,**kwarg)
 	if( sp == 'wire '):
-		Form = WiringForm(arg,**kwarg)
+		Form = WiringForm(*arg,**kwarg)
 	if( sp == 'motor'):
-		Form = MotorForm(arg,**kwarg)
+		Form = MotorForm(*arg,**kwarg)
 	if( sp == 'capas'):
-		Form = CapasitorForm(arg,**kwarg)
+		Form = CapasitorForm(*arg,**kwarg)
 	if( sp == 'motod'):
-		Form = Motor_driverForm(arg,**kwarg)
+		Form = Motor_driverForm(*arg,**kwarg)
 	if( sp == 'switch'):
-		Form = SwitchForm(arg,**kwarg)
+		Form = SwitchForm(*arg,**kwarg)
 	if( sp == 'reg'):
-		Form = RegulaterForm(arg,**kwarg)
+		Form = RegulaterForm(*arg,**kwarg)
 	if( sp == 'mat'):
-		Form = MaterialForm(arg,**kwarg)
+		Form = MaterialForm(*arg,**kwarg)
 	if( sp == 'subt'):
-		Form = SubtraceForm(arg,**kwarg)
+		Form = SubtraceForm(*arg,**kwarg)
 	if( sp == 'mcu'):
-		Form = McuForm(arg,**kwarg)
+		Form = McuForm(*arg,**kwarg)
 	if( sp == 'con'):
-		Form = ConnectorForm(arg,**kwarg)
+		Form = ConnectorForm(*arg,**kwarg)
 	if( sp == 'other'):
-		Form = OtherForm(arg,**kwarg)
+		Form = OtherForm(*arg,**kwarg)
 	return Form
 
 def getobj(sp):
