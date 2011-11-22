@@ -6,6 +6,8 @@
 		{% if debug %}
 		{{ bug }}
 		{% endif %}
+		{{ form.partype}}
+		{{form}}
 <table summary="test">
 	<thead><tr>
 			<th scope="col">名前</th>
@@ -19,7 +21,7 @@
 <tr class="odd">
 <th scope="row" class="column1">
 	{{ form.name }}</th>
-<td>{{ form.properties }}
+<td>{{ form.partype }}
 	{% if decent %}
 	{% ifequal decent "wiring" %}
 	|太さ,長さ|

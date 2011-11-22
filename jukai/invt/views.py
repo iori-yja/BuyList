@@ -136,6 +136,33 @@ def getform(sp):
 		Form = OtherForm()
 	return Form
 
+def getformwitharg(sp,*arg,**kwarg):
+	if( sp == 'resis'):
+		Form = ResistorForm(arg,**kwarg)
+	if( sp == 'wire '):
+		Form = WiringForm(arg,**kwarg)
+	if( sp == 'motor'):
+		Form = MotorForm(arg,**kwarg)
+	if( sp == 'capas'):
+		Form = CapasitorForm(arg,**kwarg)
+	if( sp == 'motod'):
+		Form = Motor_driverForm(arg,**kwarg)
+	if( sp == 'switch'):
+		Form = SwitchForm(arg,**kwarg)
+	if( sp == 'reg'):
+		Form = RegulaterForm(arg,**kwarg)
+	if( sp == 'mat'):
+		Form = MaterialForm(arg,**kwarg)
+	if( sp == 'subt'):
+		Form = SubtraceForm(arg,**kwarg)
+	if( sp == 'mcu'):
+		Form = McuForm(arg,**kwarg)
+	if( sp == 'con'):
+		Form = ConnectorForm(arg,**kwarg)
+	if( sp == 'other'):
+		Form = OtherForm(arg,**kwarg)
+	return Form
+
 def getobj(sp):
 	if( sp == 'resis'):
 		obj = Resistor()
@@ -163,11 +190,12 @@ def getobj(sp):
 		obj = Other()
 	return obj
 
+
 def partadd(request,sp='none'):
 	if request.user.is_authenticated():
-		partobj = getobj(sp)
+		if sp != 'none': partobj = getobj(sp)
 		if request.method == 'POST':
-			new_part = PartForm(request.POST,instance=partobj)#-------------
+			new_part = getformwitharg(sp,request.POST,instance=partobj)#-------------
 			if new_part.is_valid():
 				new_part.save()
 				return HttpResponseRedirect('/jukai')
