@@ -66,7 +66,7 @@ class Regulater(Part):
 	volt    = models.IntegerField(blank=True)
 class Subtrace(Part):
 	bdsize  = models.CharField(max_length=20)
-	partype = models.CharField(max_length=20)
+	partype = models.CharField(max_length=20,blank=True)
 class Connector(Part):
 	partype = models.CharField(max_length=200)
 class Other(Part):
@@ -97,7 +97,7 @@ class PartForm(ModelForm):
 class ReqForm(ModelForm):
 	class Meta:
 		model = Req
-		exclude = ('up_date','pub_date',)
+		exclude = ('partype','up_date','pub_date',)
 
 class ResistorForm(ModelForm):
 	class Meta:

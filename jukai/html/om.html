@@ -19,40 +19,44 @@
 <tr class="odd">
 <th scope="row" class="column1">
 	{{ form.name }}</th>
-<td>{{ form.partype }}
+<td>
 	{% if decent %}
-	{% ifequal decent "wiring" %}
-	|太さ,長さ|
+	{% ifequal decent "wire" %}
+	種類{{ form.partype }}<br>太さ{{ form.phi }}mm<br>長さ{{ form.length }}m
 	{% endifequal%}
-	{% ifequal decent "resistor" %}
-	|抵抗値,ワット数|
+	{% ifequal decent "resis" %}
+	抵抗値{{form.ohm}}Ω<br>ワット数{{form.watt}}W
 	{% endifequal%}
-	{% ifequal decent "capacitor" %}
-	|容量,耐圧|
+	{% ifequal decent "capas" %}
+	容量{{ form.farad }}F<br>耐圧{{ form.volt}}V
 	{% endifequal%}
 	{% ifequal decent "motor" %}
-	|型番,(メーカ)|
+	型番,(メーカ){{ form.partype }}
 	{% endifequal%}
-	{% ifequal decent "material" %}
-	|材質,形状|
+	{% ifequal decent "mat" %}
+	材質,形状の説明{{ form.partype }}
 	{% endifequal%}
 	{% ifequal decent "mcu" %}
+	{{ form.partype }}
 	|型番|
 	{% endifequal%}
-	{% ifequal decent "motor_driver" %}
+	{% ifequal decent "motod" %}
+	{{ form.partype }}
 	|型番|
 	{% endifequal%}
 	{% ifequal decent "switch" %}
+	{{ form.partype }}
 	|接点数,形状|
 	{% endifequal%}
-	{% ifequal decent "regulater" %}
-	|電圧,もしくは型番|
+	{% ifequal decent "reg" %}
+	型番{{ form.partnum }}<br>電圧{{ form.volt }}V
 	{% endifequal%}
-	{% ifequal decent "subtrace" %}
-	|基板のおおきさ|
+	{% ifequal decent "subt" %}
+	基板のおおきさ{{ form.bdsize}}
+	説明{{ form.partype }}
 	{% endifequal%}
-	{% ifequal decent "connector" %}
-	|種類|
+	{% ifequal decent "con" %}
+	種類{{ form.partype }}
 	{% endifequal%}
 	{% ifequal decent "other" %}
 	わかりやすく

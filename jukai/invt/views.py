@@ -112,7 +112,7 @@ def editor(request,part_id):
 def getform(sp):
 	if( sp == 'resis'):
 		Form = ResistorForm()
-	if( sp == 'wire '):
+	if( sp == 'wire'):
 		Form = WiringForm()
 	if( sp == 'motor'):
 		Form = MotorForm()
@@ -139,7 +139,7 @@ def getform(sp):
 def getformwitharg(sp,*arg,**kwarg):
 	if( sp == 'resis'):
 		Form = ResistorForm(*arg,**kwarg)
-	if( sp == 'wire '):
+	if( sp == 'wire'):
 		Form = WiringForm(*arg,**kwarg)
 	if( sp == 'motor'):
 		Form = MotorForm(*arg,**kwarg)
@@ -166,7 +166,7 @@ def getformwitharg(sp,*arg,**kwarg):
 def getobj(sp):
 	if( sp == 'resis'):
 		obj = Resistor()
-	if( sp == 'wire '):
+	if( sp == 'wire'):
 		obj = Wiring()
 	if( sp == 'motor'):
 		obj = Motor()
@@ -195,7 +195,7 @@ def partadd(request,sp='none'):
 	if request.user.is_authenticated():
 		if sp != 'none': partobj = getobj(sp)
 		if request.method == 'POST':
-			new_part = getformwitharg(sp,request.POST,instance=partobj)#-------------
+			new_part = getformwitharg(sp,request.POST,instance=partobj)
 			if new_part.is_valid():
 				new_part.save()
 				return HttpResponseRedirect('/jukai')
@@ -209,7 +209,8 @@ def partadd(request,sp='none'):
 			else:
 				form = getform(sp)
 				return render_to_response('html/om.html',
-					{'form' : form},
+					{'form' : form,
+					 'decent':sp},
 					context_instance=RequestContext(request)
 					)
 	else:
@@ -228,7 +229,7 @@ def request(request,part_id):
 				form=update_req.errors
 		else:
 			form = ReqForm(instance=reqobj)
-		return render_to_response('html/om.html',
+		return render_to_response('html/fuga.html',
 			{'form' : form},
 			context_instance=RequestContext(request)
 			)
