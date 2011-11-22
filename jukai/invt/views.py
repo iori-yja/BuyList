@@ -236,6 +236,7 @@ def request(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
+
 #def delete(request,kind,id):
 #	if request.user.is_authenticated():
 #		partobj = Part.objects.get(id=part_id)
