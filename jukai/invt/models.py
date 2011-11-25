@@ -14,6 +14,11 @@ from django.forms import ModelForm
 #	('mt','material'),#車体材料,10[Y/cm^3]
 #	('ot','otherparts'),#Other parts
 #)
+class news (models.Model):
+	#text = models.	fileに実体をもたせるべき
+	title = models.CharField(max_length=400)
+	pub_date = models.DateTimeField(auto_now=True,auto_now_add=True)
+	last_date = models.DateTimeField(auto_now=True,auto_now_add=False)
 
 decent_spp = (
 	('wiring','wiring'),
