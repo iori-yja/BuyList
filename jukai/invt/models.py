@@ -14,6 +14,16 @@ from django.forms import ModelForm
 #	('mt','material'),#車体材料,10[Y/cm^3]
 #	('ot','otherparts'),#Other parts
 #)
+
+auxiliaryunit = (
+	('G','G'),
+	('M','M'),
+	('K','K'),
+	('-',''),
+	('m','m'),
+	('u','μ'),
+	('p','p'),
+)
 class news (models.Model):
 	#text = models.	fileに実体をもたせるべき
 	title = models.CharField(max_length=400)
@@ -46,36 +56,69 @@ class Part (models.Model):
 		return self.name
 
 class Resistor(Part):
-	ohm  = models.IntegerField()
-	watt = models.IntegerField()
+	ohm  = models.FloatField()
+	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit)
+	watt = models.IntegerField() #next issue is here
+	def mkprop(self):
+		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+"W"+str(self.resistor.watt)
+		return prop
+
 class Wiring(Part):
 	partype = models.CharField(max_length=20)
-	phi     = models.IntegerField()
-	length  = models.IntegerField()
+	phi     = models.FloatField()
+	length  = models.FloatField()
+	lensuf  = models.CharField(max_length=2,choices=auxiliaryunit)
+	def mkprop(self):
+		prop=str(self.wiring.phi)+"mm"+u"の"+self.wiring.partype+str(self.wiring.length)+u"m分"
+		return prop
 class Capasitor(Part):
 	partype = models.CharField(max_length=20,blank=True)
 	volt    = models.IntegerField()
-	farad   = models.IntegerField()
+	farad   = models.FloatField()
+	farsuf  = models.CharField(max_length=2,choices=auxiliaryunit)
+	def mkprop(self):
+		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
+		return prop
 class Motor(Part):
 	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.motor.partype
 class Mcu(Part):
 	partype = models.CharField(max_length=30)
+	def mkprop(self):
+		return self.mcu.partype
 class Material(Part):
 	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.material.partype
 class Motor_driver(Part):
 	partype = models.CharField(max_length=20)
+	def mkprop(self):
+		return self.motor_driver.partype
 class Switch(Part):
 	partype = models.CharField(max_length=20)
+	def mkprop(self):
+		return self.switch.partype
 class Regulater(Part):
 	partnum = models.CharField(max_length=20)
 	volt    = models.IntegerField(blank=True)
+	def mkprop(self):
+		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
+		return prop
 class Subtrace(Part):
 	bdsize  = models.CharField(max_length=20)
 	partype = models.CharField(max_length=20,blank=True)
+	def mkprop(self):
+		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
+		return prop
 class Connector(Part):
 	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.connector.partype
 class Other(Part):
 	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.other.partype
 
 class Req(models.Model):
 	partype = models.ForeignKey(Part)

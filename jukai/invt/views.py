@@ -10,11 +10,39 @@ from jukai.invt.models import *
 from django.http import HttpResponse
 
 
+def mkprop(part):
+	try: prop=part.resistor.mkprop
+	except:
+		try: prop=part.wiring.mkprop
+		except:
+			try: prop=part.capasitor.mkprop
+			except:
+				try: prop=part.motor.mkprop
+				except:
+					try: prop=part.mcu.mkprop
+					except:
+						try: prop=part.material.mkprop
+						except:
+							try: prop=part.motor_driver.mkprop
+							except:
+								try: prop=part.switch.mkprop
+								except:
+									try: prop=part.regulater.mkprop
+									except:
+										try: prop=part.subtrace.mkprop
+										except:
+											try: prop=part.connector.mkprop
+											except:
+												try: prop=part.other.mkprop
+												except: prop="><"
+	return prop
+
 class Parter:
 	def __init__(self, latest_part):
 		self.latest_part = latest_part
 		all_req = self.latest_part.req_set.all()[:10]
 		self.up_date = 0
+		self.prop = mkprop(latest_part)
 		if all_req:	self.up_date = all_req[0].up_date
 		else:		self.up_date = 'Not yet'
 		if self.latest_part.req_set.all()[:10]:
@@ -30,9 +58,11 @@ class Parter:
 			self.Blevneeds = 0
 			self.Clevneeds = 0
 
+
 class Nudes:
 	def __init__(self, latest_req):
 		self.latest_part = latest_req.partype
+		self.prop = mkprop(latest_req.partype)
 		self.up_date = latest_req.up_date
 		all_req = self.latest_part.req_set.all()
 		self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds() for req in all_req ] )
@@ -50,6 +80,7 @@ class Reqlist:
 		self.Alevneeds  = latest_req.Anum  
 		self.Blevneeds  = latest_req.Bnum  
 		self.Clevneeds  = latest_req.Cnum  
+
 
 def listreqs(request):
 	latest_req_list = Req.objects.all().order_by('-up_date')
@@ -78,9 +109,9 @@ def new(request,length=10000):
 		)
 
 def popular(request,length=10000):
-	latest_part_list = Part.objects.all().order_by('id')[:1000]
+	latest_part_list = Part.objects.all().order_by('id')[:length]
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
-	new = sorted(nee,key=operator.attrgetter('allneeds'))
+	new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
 	return render_to_response('html/hoge.html',
 		{'needs': new,
 		'update': True,

@@ -22,10 +22,10 @@
 <td>
 	{% if decent %}
 	{% ifequal decent "wire" %}
-	種類{{ form.partype }}<br>太さ{{ form.phi }}mm<br>長さ{{ form.length }}m
+	種類{{ form.partype }}<br>太さ{{ form.phi }}mm<br>長さ{{ form.length }}{{form.lensuf}}m
 	{% endifequal%}
 	{% ifequal decent "resis" %}
-	抵抗値{{form.ohm}}Ω<br>ワット数{{form.watt}}W
+	抵抗値{{form.ohm}}{{form.ohmsuf}}Ω<br>ワット数{{form.watt}}W
 	{% endifequal%}
 	{% ifequal decent "capas" %}
 	容量{{ form.farad }}F<br>耐圧{{ form.volt}}V
