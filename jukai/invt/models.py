@@ -60,7 +60,7 @@ class Resistor(Part):
 	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit)
 	watt = models.IntegerField() #next issue is here
 	def mkprop(self):
-		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+"W"+str(self.resistor.watt)
+		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+u"Ω  "+str(self.resistor.watt)+"W"
 		return prop
 
 class Wiring(Part):
@@ -103,13 +103,17 @@ class Regulater(Part):
 	partnum = models.CharField(max_length=20)
 	volt    = models.IntegerField(blank=True)
 	def mkprop(self):
-		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
+		if self.regulater.volt == None:
+			voltmsg=u"電圧未記入"
+		else:
+			voltmsg="("+str(self.regulater.volt)+")"
+		prop=u"型番"+self.regulater.farad+u"の"+u"レギュレータ"+voltmsg
 		return prop
 class Subtrace(Part):
 	bdsize  = models.CharField(max_length=20)
 	partype = models.CharField(max_length=20,blank=True)
 	def mkprop(self):
-		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
+		prop=self.capasitor.partype+"  "+self.capasitor.volt
 		return prop
 class Connector(Part):
 	partype = models.CharField(max_length=200)
