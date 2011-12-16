@@ -1,11 +1,12 @@
 <div id="container">
+<body bgcolor=#aaf>
 	<div id="sheet">
 		{{ sp }}
 		{% if debug %}
 		{{ bug }}
 		{% endif %}
 <form method="POST" action="">
-	{{form.as_table}}
+	{{form.as_ul}}
 <input type="submit" />
 </form>
 	{{ decent }}

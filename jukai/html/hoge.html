@@ -2,11 +2,14 @@
 {% block main %}
 <script type="text/javascript">
 <!--
-var xmlHttp;
 
-function load(moon){
+function load(sun,moon){
 	var hoge=document.getElementById("fuga");
-	hoge.src=moon
+	hoge.src="/jukai/req/"+sun;
+	for(var n=0;n<{{needs|length}};n++){	
+		if (n!=moon) document.getElementById(n).style.color="#000000";
+		else document.getElementById(n).style.color="#ff0000";
+	}
 }
 // -->
 </script>
@@ -22,7 +25,7 @@ function load(moon){
 			<th scope="col">急いで</th>
 			<th scope="col">そろそろ</th>
 			<th scope="col">いつでも</th>
-			<th scope="col">Sum </th>
+			<th scope="col">Sum</th>
 			<th scope="col">Lastordered</th>
 			<th scope="col"></th>
 			<th scope="col"></th>
@@ -42,7 +45,7 @@ function load(moon){
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
 			<td><a href=/jukai/{{n.latest_part.id}}>Edit</a></td>
-			<td><span onClick="load('/jukai/req/{{n.latest_part.id}}')">Request</span></td>
+			<td><span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" id="{{forloop.counter0}}">Request</span></td>
 		</tr>
 		{% endfor %}
 		{% else %}
@@ -64,6 +67,6 @@ function load(moon){
 	{% endif %}<br>
 	<a href="/django/logout">ログアウト</a><br>
 	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
-<iframe width="200" height="600" frameborder=0 scrolling=no id="fuga"></iframe>
+<iframe width="200" height="260" frameborder=0 scrolling=no id="fuga"></iframe>
 </body>
 {% endblock %}

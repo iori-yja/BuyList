@@ -255,7 +255,7 @@ def request(request,part_id):
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
 				update_req.save()
-				return HttpResponseRedirect('/jukai')
+				return HttpResponseRedirect('/resistored')
 			else:
 				form=update_req.errors
 		else:
