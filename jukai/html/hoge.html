@@ -42,18 +42,17 @@
 		</table>
 	</td>
 <td valign="top" width="200">
-	<a href="/jukai/add">部品を追加する</a>
-	<a href="/jukai/new">最近注文があった順</a>
-	<a href="/jukai/reqs">最近の注文</a>
-	<a href="/jukai/pop">人気の部品</a>
-	検索
-	aaaあああregistered
-	{% if user.is_authenticated %}
-	{{ user.username }}
-	{% else %}
-	<a href="/django/login">ログイン</a>
-	{% endif %}
-	<a href="/django/logout">ログアウト</a>
-	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a>
+	<a href="/jukai/add">部品を追加する</a><br>
+	<a href="/jukai/new">最近注文があった順</a><br>
+	<a href="/jukai/reqs">最近の注文</a><br>
+	<a href="/jukai/pop">人気の部品</a><br>
+	検索<br>
+	{% if user.is_authenticated %}<br>
+	{{ user.username }}<br>
+	{% else %}<br>
+	<a href="/django/login">ログイン</a><br>
+	{% endif %}<br>
+	<a href="/django/logout">ログアウト</a><br>
+	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
 </body>
 {% endblock %}
