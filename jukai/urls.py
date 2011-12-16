@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^jukai/reqs/$','jukai.invt.views.listreqs'),
     url(r'^jukai/req/(\d+)','jukai.invt.views.request'),
    #url(r'^jukai/delete/(\d+)', 'jukai.invt.views.delete'),
-   # url(r'^jukai/cancel/(\d+)', 'jukai.invt.views.cansel'),
+   #url(r'^jukai/cancel/(\d+)', 'jukai.invt.views.cansel'),
     url(r'^login/$', 'django.contrib.auth.views.login',{'template_name':'html/lin.html'}),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
 )

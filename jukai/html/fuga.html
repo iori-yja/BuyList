@@ -1,0 +1,14 @@
+{% extends "html/piyo.html" %}
+{% block main %}
+<div id="container">
+	<div id="sheet">
+		{{ sp }}
+		{% if debug %}
+		{{ bug }}
+		{% endif %}
+<form method="POST" action="">
+	{{form.as_table}}
+<input type="submit" />
+</form>
+	{{ decent }}
+{% endblock %}
