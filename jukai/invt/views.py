@@ -229,7 +229,7 @@ def partadd(request,sp='none'):
 			new_part = getformwitharg(sp,request.POST,instance=partobj)
 			if new_part.is_valid():
 				new_part.save()
-				return HttpResponseRedirect('/jukai')
+				return HttpResponseRedirect('/registered')
 			else:
 				return HttpResponseRedirect('/Oops')
 		else:

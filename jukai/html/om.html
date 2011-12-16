@@ -1,25 +1,19 @@
-{% extends "html/header.html" %}
-{% block main %}
-
-<div id="container">
-	<div id="sheet">
-		{{ sp }}
-		{% if debug %}
-		{{ bug }}
-		{% endif %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="http://iorivr.dyndns.org/global.css" type="text/css">
+<title></title>
+</head>
 <table summary="test">
-	<thead><tr>
-			<th scope="col">名前</th>
-			<th scope="col">Properties </th>
-			<th scope="col">値段</th>
-			<th scope="col">お店</th>
-			<th scope="col">参考url</th>
-		</tr></thead>
-	<tbody>
 <form method="POST" action="">
 <tr class="odd">
 <th scope="row" class="column1">
-	{{ form.name }}</th>
+	<tbody>
+		<tr scope="col"><td>名前</td>
+			<td>{{ form.name }}</td>
+		</tr>
+		<tr scope="col"><td>Properties</td>
 <td>
 	{% if decent %}
 	{% ifequal decent "wire" %}
@@ -65,12 +59,12 @@
 </td>
 	{% else %}
 	常識にそって</td>
-	{% endif %}
-	<td>{{ form.price }}</td>
-	<td>{{ form.shop }}</td>
-	<td>{{ form.url }}</td>
+{% endif %}</tr>
+		<tr scope="col"><td>値段</td><td>{{ form.price }}</td></tr>
+		<tr scope="col"><td>お店</td><td>{{ form.shop }}</td></tr>
+		<tr scope="col"><td>参考url</td><td>{{ form.url }}</td></tr>
 	<td>{{ form.pay_by_school }}</td>
+<form method="POST" action="">
 <input type="submit" />
 </form>
 	{{ decent }}
-{% endblock %}
