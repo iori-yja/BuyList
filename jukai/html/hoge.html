@@ -1,8 +1,7 @@
 {% extends "html/header.html" %}
 {% block main %}
-<div id="container">
-	<div id="sheet">
-		{{ user.email }}
+<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
+		<td>
 <table summary="test">
 	<thead><tr>
 			<th scope="col">種類</th>
@@ -41,9 +40,8 @@
 		{% endif %}
 		</tbody>
 		</table>
+	</td>
+<td valign="top" width="200">
 <a href="/jukai/add">部品を追加する</a>
-</div></div>
-
 </body>
-
 {% endblock %}
