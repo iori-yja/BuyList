@@ -1,44 +1,22 @@
-{% extends "html/piyo.html" %}
+{% extends "html/header.html" %}
 {% block main %}
-decent_spp = (
-	('wiring','wiring'),
-	('resistor','resistor'),
-	('capacitor','capacitor'),
-	('motor','motor'),
-	('mcu','mcu'),
-	('material','material'),
-	('motor_driver','motor_driver'),
-	('switch','switch'),
-	('regulater','regulater'),
-	('subtrace','subtrace'),
-	('connector','connector'),
-	('other','otherelectorical parts'),
-)486384
-<div id="container">
-	<div id="sheet">
-		<div style="float:left">
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/resis">抵抗器</a></div>
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/wire">配線系で線状<br>はんだ、錫メッキなど</a></div>
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/reg">レギュレータ(3端子など)</a></div>
-		</div>
-		<div style="float:left">
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/motor">モータ</a></div>
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/capas">コンデンサ</a></div>
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/subt">基板</a></div>
-		</div>
-		<div style="float:left">
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/motod">モータドライバ</a></div>
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/switch">スイッチ</a></div>
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/other">その他</a></div>
-		</div>
-		<div style="float:left">
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/mat">車体材料</a></div>
-			<div class="littlebox" style="background:#486384"><a href="/jukai/add/mcu">マイコン</a></div>
-			<div class="littlebox" style="background:#488463"><a href="/jukai/add/con">コネクタ</a></div>
-		</div>
-		
-</div></div>
-
+<ul>
+<h1>それではっ部品を追加しましょう</h1>
+<h2>それは、どんな種類ですか？</h2>
+<li><a href="/jukai/add/resis">抵抗器</a></div>
+</li><li><a href="/jukai/add/wire">配線系で線状はんだ、錫メッキなど</a></div>
+</li><li><a href="/jukai/add/reg">レギュレータ(3端子など)</a></div>
+</li><li><a href="/jukai/add/motor">モータ</a></div>
+</li><li><a href="/jukai/add/capas">コンデンサ</a></div>
+</li><li><a href="/jukai/add/subt">基板</a></div>
+</li><li><a href="/jukai/add/motod">モータドライバ</a></div>
+</li><li><a href="/jukai/add/switch">スイッチ</a></div>
+</li><li><a href="/jukai/add/other">その他</a></div>
+</li><li><a href="/jukai/add/mat">車体材料</a></div>
+</li><li><a href="/jukai/add/mcu">マイコン</a></div>
+</li><li><a href="/jukai/add/con">コネクタ</a></div>
+</li>
+</ul>
 </body>
 
 {% endblock %}
