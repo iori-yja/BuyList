@@ -1,5 +1,15 @@
 {% extends "html/header.html" %}
 {% block main %}
+<script type="text/javascript">
+<!--
+var xmlHttp;
+
+function load(moon){
+	var hoge=document.getElementById("fuga");
+	hoge.src=moon
+}
+// -->
+</script>
 <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
 		<td>
 <table summary="test">
@@ -32,7 +42,7 @@
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
 			<td><a href=/jukai/{{n.latest_part.id}}>Edit</a></td>
-			<td><a href=/jukai/req/{{n.latest_part.id}}>Request</a></td>
+			<td><span onClick="load('/jukai/req/{{n.latest_part.id}}')">Request</span></td>
 		</tr>
 		{% endfor %}
 		{% else %}
@@ -54,5 +64,6 @@
 	{% endif %}<br>
 	<a href="/django/logout">ログアウト</a><br>
 	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
+<iframe width="200" height="600" frameborder=0 scrolling=no id="fuga"></iframe>
 </body>
 {% endblock %}
