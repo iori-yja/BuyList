@@ -18,6 +18,7 @@ function load(sun,moon){
 
 		<td><h1>買出しリスト</h1>
 			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
+		{% if reqs %}新着リクエスト</h2>{% else %}
 		What's this?
 		</h2>
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
@@ -30,7 +31,7 @@ function load(sun,moon){
 		でテストログインできます。
 		<h2>使い方</h2>
 		右上からログインします。
-		眺めます。部品を追加したり、部品をリクエストしたりできます。<td>{% endif %} {% endif%} 
+		眺めます。部品を追加したり、部品をリクエストしたりできます。<td>{% endif %}  {% endif%} {% endif%} 
 
 <table summary="test">
 	<thead><tr>

@@ -86,7 +86,8 @@ def listreqs(request):
 	latest_req_list = Req.objects.all().order_by('-up_date')
 	nee = [ Reqlist(latest_req) for latest_req in latest_req_list ]
 	return render_to_response('html/hoge.html',
-		{'needs': nee},
+		{'needs': nee,
+		 'reqs': True},
 		context_instance=RequestContext(request))
 
 def index(request):
