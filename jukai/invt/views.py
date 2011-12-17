@@ -10,6 +10,31 @@ from jukai.invt.models import *
 from django.http import HttpResponse
 
 
+def objdelete(partobj):
+	try: partobj.resistor.delete()
+	except:
+		try: partobj.wiring.delete()
+		except:
+			try: partobj.capasitor.delete()
+			except:
+				try: partobj.motor.delete()
+				except:
+					try: partobj.mcu.delete()
+					except:
+						try: partobj.material.delete()
+						except:
+							try: partobj.motor_driver.delete()
+							except:
+								try: partobj.switch.delete()
+								except:
+									try: partobj.regulater.delete()
+									except:
+										try: partobj.subtrace.delete()
+										except:
+											try: partobj.connector.delete()
+											except:
+												try: partobj.other.delete()
+												except: partobj.delete()
 def mkprop(part):
 	try: prop=part.resistor.mkprop
 	except:
@@ -74,6 +99,7 @@ class Nudes:
 class Reqlist:
 	def __init__(self, latest_req):
 		self.latest_part = latest_req.partype
+		self.prop = mkprop(self.latest_part)
 		self.up_date = latest_req.up_date
 		self.allneeds   = latest_req.allneeds   
 		self.Mlevneeds  = latest_req.Mnum  
@@ -273,12 +299,11 @@ def request(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
+def delete(request,part_id):
+	if request.user.is_authenticated():
+		partobj = Part.objects.get(id=part_id)
+		objdelete(partobj)
+		return HttpResponseRedirect('/jukai')
+	else:
+		return HttpResponseRedirect('/Oops')
 
-#def delete(request,kind,id):
-#	if request.user.is_authenticated():
-#		partobj = Part.objects.get(id=part_id)
-#		partobj.delete()
-#		return HttpResponseRedirect('/jukai')
-#	else:
-#		return HttpResponseRedirect('/Oops')
-#
