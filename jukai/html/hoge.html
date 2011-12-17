@@ -13,8 +13,25 @@ function load(sun,moon){
 }
 // -->
 </script>
+<div id="content">
 <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
-		<td>
+
+		<td><h1>買出しリスト</h1>
+			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
+		What's this?
+		</h2>
+		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
+		いまだにアルファリリースですので、使用にたえませんし、中のデータもテストデータです。いつ消えるかは
+		開発者次第です。<p>
+		現在テストユーザと開発者を募集しています。特に絵が描ける人や文章が書ける人、それからpythonが書ける、もしくは
+		やってみたい方大歓迎です。<br>
+		userid:Testuser
+		password:passwd
+		でテストログインできます。
+		<h2>使い方</h2>
+		右上からログインします。
+		眺めます。部品を追加したり、部品をリクエストしたりできます。<td>{% endif %} {% endif%} 
+
 <table summary="test">
 	<thead><tr>
 			<th scope="col">種類</th>
@@ -68,5 +85,6 @@ function load(sun,moon){
 	<a href="/django/logout">ログアウト</a><br>
 	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
 <iframe width="200" height="260" frameborder=0 scrolling=no id="fuga"></iframe>
+</div>
 </body>
 {% endblock %}

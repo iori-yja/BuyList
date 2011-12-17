@@ -114,7 +114,7 @@ def popular(request,length=10000):
 	new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
 	return render_to_response('html/hoge.html',
 		{'needs': new,
-		'update': True,
+		'popular': True,
 		'length': length},
 		context_instance=RequestContext(request)
 		)
