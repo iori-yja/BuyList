@@ -9,15 +9,25 @@ function load(sun,moon){
 	hoge.src="/jukai/req/"+sun;
 	albox.style.visibility="visible";
 	for(var n=0;n<{{needs|length}};n++){	
-		if (n!=moon) document.getElementById(n).style.color="#888888";
-		else document.getElementById(n).style.color="#000000";
+		if (n!=moon){
+			var mod=document.getElementById(n)
+			mod.style.color="#888888";
+			mod.className="button1";
+		}
+		else{
+			var mod=document.getElementById(n);
+			mod.style.color="#000000";
+			mod.className="selectedbutton";
+		}
 	}
 }
 function hidealbox(){
 	var hoge=document.getElementById("albox");
 	hoge.style.visibility="hidden";
 	for(var n=0;n<{{needs|length}};n++){	
-		document.getElementById(n).style.color="#555555";
+		var mod=document.getElementById(n);
+		mod.style.color="#555555";
+		mod.className="button1";
 	}
 }
 // -->
@@ -30,7 +40,7 @@ function hidealbox(){
 		What's this?
 		</h2>
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
-		いまだにアルファリリースですので、使用にたえませんし、中のデータもテストデータです。いつ消えるかは
+		いまだにアルファリリースですので、使用にたえませんし、中のデータもテストデータです。いつデータが消えるかは
 		開発者次第です。<p>
 		現在テストユーザと開発者を募集しています。特に絵が描ける人や文章が書ける人、それからpythonやJavascriptが書ける、もしくは
 		やってみたい方大歓迎です。<br>
@@ -41,12 +51,12 @@ function hidealbox(){
 		右上からログインします。
 		眺めます。部品を追加したり、部品をリクエストしたりできます。リクエストするには右のRequestボタンをつかいます。
 		<h2>実装</h2>
-		DjangoをDBの操作やテンプレートの展開等につかっています。
+		DjangoをDBの操作やテンプレートの展開等につかっています。DBはsqlite3をつかっていますが、いずれNoSQL化する予定です。
 		<h2>開発手法</h2>
 		gitでヴァージョン管理をしています。上のリポジトリから見れます。
 		<h2>あの機能はないの?</h2>
-		メーリングリストで僕にきいてください。
-		消す機能は、部品のeditを押し、~/jukai/(id)となっているアドレスを~/jukai/delete/(id)とするとその部品は消えます。<br>
+		メーリングリストで僕にきくか、<a href="http://iorivr.dyndns.org:8080/redmine/projects/jukai-list/">redmine</a>を活用してください。
+		部品を消す機能は、部品のeditを押し、~/jukai/(id)となっているアドレスを~/jukai/deletepart/(id)とするとその部品は消えます。<br>
 		要素別のソートはだれかjavascriptで書いてください。その他にはredmineを参照してください。<br>
 		<td>{% endif %}{% endif%}{% endif%} 
 			<table>

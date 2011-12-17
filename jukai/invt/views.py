@@ -299,7 +299,15 @@ def request(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
-def delete(request,part_id):
+def deleterequest(request,part_id):
+	if request.user.is_authenticated():
+		partobj = Reqs.objects.get(id=part_id)
+		partobj.delete()
+		return HttpResponseRedirect('/jukai')
+	else:
+		return HttpResponseRedirect('/Oops')
+
+def deletepart(request,part_id):
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
 		objdelete(partobj)
