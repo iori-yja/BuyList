@@ -5,10 +5,19 @@
 
 function load(sun,moon){
 	var hoge=document.getElementById("fuga");
+	var albox=document.getElementById("albox");
 	hoge.src="/jukai/req/"+sun;
+	albox.style.visibility="visible";
 	for(var n=0;n<{{needs|length}};n++){	
-		if (n!=moon) document.getElementById(n).style.color="#000000";
-		else document.getElementById(n).style.color="#ff0000";
+		if (n!=moon) document.getElementById(n).style.color="#888888";
+		else document.getElementById(n).style.color="#000000";
+	}
+}
+function hidealbox(){
+	var hoge=document.getElementById("albox");
+	hoge.style.visibility="hidden";
+	for(var n=0;n<{{needs|length}};n++){	
+		document.getElementById(n).style.color="#555555";
 	}
 }
 // -->
@@ -24,17 +33,18 @@ function load(sun,moon){
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
 		いまだにアルファリリースですので、使用にたえませんし、中のデータもテストデータです。いつ消えるかは
 		開発者次第です。<p>
-		現在テストユーザと開発者を募集しています。特に絵が描ける人や文章が書ける人、それからpythonが書ける、もしくは
+		現在テストユーザと開発者を募集しています。特に絵が描ける人や文章が書ける人、それからpythonやJavascriptが書ける、もしくは
 		やってみたい方大歓迎です。<br>
 		userid:Testuser
 		password:passwd
 		でテストログインできます。
 		<h2>使い方</h2>
 		右上からログインします。
-		眺めます。部品を追加したり、部品をリクエストしたりできます。<td>{% endif %}  {% endif%} {% endif%} 
-
-<table summary="test">
-	<thead><tr>
+		眺めます。部品を追加したり、部品をリクエストしたりできます。リクエストするには右のRequestボタンをつかいます。
+		<h2>実装</h2>
+		DjangoをDBの操作やテンプレートの展開等につかっています。<td>{% endif %}  {% endif%} {% endif%} 
+			<table>
+			<thead><tr>
 			<th scope="col">種類</th>
 			<th scope="col">値段</th>
 			<th scope="col">お店</th>
@@ -63,7 +73,7 @@ function load(sun,moon){
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
 			<td><a href=/jukai/{{n.latest_part.id}}>Edit</a></td>
-			<td><span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" id="{{forloop.counter0}}">Request</span></td>
+			<td><span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" class="button1" id="{{forloop.counter0}}">Request</span></td>
 		</tr>
 		{% endfor %}
 		{% else %}
@@ -73,6 +83,7 @@ function load(sun,moon){
 		</table>
 	</td>
 <td valign="top" width="200">
+	<h1>メニュー</h1>
 	<a href="/jukai/add">部品を追加する</a><br>
 	<a href="/jukai/new">最近注文があった順</a><br>
 	<a href="/jukai/reqs">最近の注文</a><br>
@@ -85,7 +96,8 @@ function load(sun,moon){
 	{% endif %}<br>
 	<a href="/django/logout">ログアウト</a><br>
 	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
-<iframe width="200" height="260" frameborder=0 scrolling=no id="fuga"></iframe>
+	<div id="albox"><div style="color:#ffffff;background-color:#333333" onClick="hidealbox()">
+			<iframe width="160" height="260" frameborder=0 scrolling=no id="fuga"></iframe></div></div>
 </div>
 </body>
 {% endblock %}

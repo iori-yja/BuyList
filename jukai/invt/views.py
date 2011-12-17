@@ -109,6 +109,11 @@ def new(request,length=10000):
 		context_instance=RequestContext(request)
 		)
 
+def resistored(request,length=10000):
+	return render_to_response('html/resistored.html',
+		{},
+		context_instance=RequestContext(request)
+		)
 def popular(request,length=10000):
 	latest_part_list = Part.objects.all().order_by('id')[:length]
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
