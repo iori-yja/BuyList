@@ -65,12 +65,12 @@ def mkprop(part):
 class Parter:
 	def __init__(self, latest_part):
 		self.latest_part = latest_part
-		all_req = self.latest_part.req_set.all()[:10]
+		all_req = self.latest_part.req_set.all()
 		self.up_date = 0
 		self.prop = mkprop(latest_part)
 		if all_req:	self.up_date = all_req[0].up_date
 		else:		self.up_date = 'Not yet'
-		if self.latest_part.req_set.all()[:10]:
+		if self.latest_part.req_set.all():
 			self.allneeds   = reduce( lambda x,y:x+y, [ req.allneeds() for req in all_req ] )
 			self.Mlevneeds = reduce( lambda x,y:x+y, [ req.Mnum for req in all_req ] )
 			self.Alevneeds  = reduce( lambda x,y:x+y, [ req.Anum for req in all_req ] )
@@ -318,6 +318,7 @@ def deletepart(request,part_id):
 def reportbought(request,part_id,num):
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
+
 		return HttpResponseRedirect('/Thankstobuy')
 	else:
 		return HttpResponseRedirect('/Oops')
