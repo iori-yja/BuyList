@@ -299,10 +299,10 @@ def request(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
-def deleterequest(request,part_id):
+def deleterequest(request,req_id):
 	if request.user.is_authenticated():
-		partobj = Reqs.objects.get(id=part_id)
-		partobj.delete()
+		reqobj = Reqs.objects.get(id=req_id)
+		reqobj.delete()
 		return HttpResponseRedirect('/jukai')
 	else:
 		return HttpResponseRedirect('/Oops')
@@ -315,3 +315,9 @@ def deletepart(request,part_id):
 	else:
 		return HttpResponseRedirect('/Oops')
 
+def reportbought(request,part_id,num):
+	if request.user.is_authenticated():
+		partobj = Part.objects.get(id=part_id)
+		return HttpResponseRedirect('/Thankstobuy')
+	else:
+		return HttpResponseRedirect('/Oops')
