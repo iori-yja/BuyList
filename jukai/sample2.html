@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=UTF-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+
+<title>非同期通信テスト</title>
+
+<script type="text/javascript">
+<!--
+var xmlHttp;
+
+function loadText(){
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = checkStatus;
+    xmlHttp.open("GET", "/django/jukai", true);
+
+    xmlHttp.send(null);
+}
+
+function checkStatus(){
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+        alert(xmlHttp.responseText);
+    }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+
+<h1>非同期通信テスト</h1>
+
+
+<form>
+<input type="button" value="ファイル読み込み" onClick="loadText()">
+</form>
+</body>
+</html>

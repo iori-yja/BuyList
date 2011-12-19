@@ -36,7 +36,7 @@ function hidealbox(){
 <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
 		<td width="200"><h1>買出しリスト</h1>
 			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
-		{% if reqs %}新着リクエスト</h2>{% else %}
+		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにチェックを入れて、その数を記入してください{% else %}
 		What's this?
 		</h2>
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
@@ -58,9 +58,13 @@ function hidealbox(){
 		メーリングリストで僕にきくか、<a href="http://iorivr.dyndns.org:8080/redmine/projects/jukai-list/">redmine</a>を活用してください。
 		部品を消す機能は、部品のeditを押し、~/jukai/(id)となっているアドレスを~/jukai/deletepart/(id)とするとその部品は消えます。<br>
 		要素別のソートはだれかjavascriptで書いてください。その他にはredmineを参照してください。<br>
-		<td>{% endif %}{% endif%}{% endif%} 
+		<td>{% endif %}{% endif%}{% endif%}{% endif%} 
 			<table>
 			<thead><tr>
+			{% if report %}
+			<th scope="col"></th>
+			<th scope="col"></th>
+			{% endif %}
 			<th scope="col">種類</th>
 			<th scope="col">値段</th>
 			<th scope="col">お店</th>
@@ -71,12 +75,17 @@ function hidealbox(){
 			<th scope="col">いつでも</th>
 			<th scope="col">Sum</th>
 			<th scope="col">Lastordered</th>
+			{%if report %}{% else %}
 			<th scope="col"></th>
-			<th scope="col"></th>
+			<th scope="col"></th>{%endif %}
 		</tr></thead>
 	<tbody>
 		{% if needs %}
 		{% for n in needs %}<tr class="odd">
+			{% if report %}
+			<th scope="col"><input type="checkbox"></th>
+			<th scope="col"></th>
+			{% endif %}
 			<th scope="row" class="column1">
 			{{ n.latest_part.name }}</th>
 			<td>{{ n.latest_part.price }}</td>
@@ -88,8 +97,11 @@ function hidealbox(){
 			<td>{{ n.Clevneeds }}個</td>
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
-			<td><a href=/jukai/{{n.latest_part.id}}>Edit</a></td>
-			<td><span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" class="button1" id="{{forloop.counter0}}">Request</span></td>
+			<td>
+			{% if report %} {% else %}<a href=/jukai/{{n.latest_part.id}}>Edit</a></td><td>
+				<span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" class="button1" id="{{forloop.counter0}}">
+					Request
+			</span></td>{% endif %}
 		</tr>
 		{% endfor %}
 		{% else %}

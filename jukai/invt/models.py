@@ -143,6 +143,7 @@ class Req(models.Model):
 class Butsutsu(ModelForm):
 	user = models.EmailField(max_length=140)
 	post = models.TextField()
+
 class PartForm(ModelForm):
 	class Meta:
 		model = Part

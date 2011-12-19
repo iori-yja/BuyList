@@ -107,6 +107,63 @@ class Reqlist:
 		self.Blevneeds  = latest_req.Bnum  
 		self.Clevneeds  = latest_req.Cnum  
 
+def deletenullreqdb():
+	latest_req_list = Req.objects.all()
+	reduce((lambda x, y: y.allneeds() == 0 and y.delete() or 0), latest_req_list, 1)
+
+def reportbought(part_id, num):
+	def deleterequestM(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Mnum > num:
+				pl[0].Mnum = partreq.Mnum - num
+			else:
+				num = num - pl[0].Mnum
+				pl[0].Mnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestA(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Anum > num:
+				pl[0].Anum = partreq.Anum - num
+			else:
+				num = num - pl[0].Anum
+				pl[0].Anum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestB(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Bnum > num:
+				pl[0].Bnum = partreq.Bnum - num
+			else:
+				num = num - pl[0].Bnum
+				pl[0].Bnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestC(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Cnum > num:
+				pl[0].Cnum = partreq.Cnum - num
+			else:
+				num = num - pl[0].Cnum
+				pl[0].Cnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	partobj = Part.objects.get(id=part_id)
+	partreq = Parter(partobj).all_req
+	if num > 0: num = deleterequestM(partreq,num)
+	if num > 0: num = deleterequestA(partreq,num)
+	if num > 0: num = deleterequestB(partreq,num)
+	if num > 0: num = deleterequestC(partreq,num)
+	deletenullreqdb()
+	return num
 
 def listreqs(request):
 	latest_req_list = Req.objects.all().order_by('-up_date')
@@ -315,64 +372,20 @@ def deletepart(request,part_id):
 	else:
 		return HttpResponseRedirect('/Oops')
 
-	#sumlist = reduce((lambda x,y:x+[x[-1]+y]),[partinfo.Mlevneeds,partinfo.Alevneeds,partinfo.Blevneeds,partinfo.Clevneeds],[0])
 
-def deletenullreqdb():
-	latest_req_list = Req.objects.all()
-	reduce((lambda x, y: y.allneeds() == 0 and y.delete() or 0), latest_req_list, 1)
-
-def reportbought(part_id, num):
-	def deleterequestM(partreq,num):
-		pl = partreq
-		while pl != [] and num > 0:
-			if pl[0].Mnum > num:
-				pl[0].Mnum = partreq.Mnum - num
-			else:
-				num = num - pl[0].Mnum
-				pl[0].Mnum = 0
-			pl[0].save()
-			pl = pl[1:]
-		return num
-	def deleterequestA(partreq,num):
-		pl = partreq
-		while pl != [] and num > 0:
-			if pl[0].Anum > num:
-				pl[0].Anum = partreq.Anum - num
-			else:
-				num = num - pl[0].Anum
-				pl[0].Anum = 0
-			pl[0].save()
-			pl = pl[1:]
-		return num
-	def deleterequestB(partreq,num):
-		pl = partreq
-		while pl != [] and num > 0:
-			if pl[0].Bnum > num:
-				pl[0].Bnum = partreq.Bnum - num
-			else:
-				num = num - pl[0].Bnum
-				pl[0].Bnum = 0
-			pl[0].save()
-			pl = pl[1:]
-		return num
-	def deleterequestC(partreq,num):
-		pl = partreq
-		while pl != [] and num > 0:
-			if pl[0].Cnum > num:
-				pl[0].Cnum = partreq.Cnum - num
-			else:
-				num = num - pl[0].Cnum
-				pl[0].Cnum = 0
-			pl[0].save()
-			pl = pl[1:]
-		return num
-	partobj = Part.objects.get(id=part_id)
-	partreq = Parter(partobj).all_req
-	if num > 0: num = deleterequestM(partreq,num)
-	if num > 0: num = deleterequestA(partreq,num)
-	if num > 0: num = deleterequestB(partreq,num)
-	if num > 0: num = deleterequestC(partreq,num)
-	deletenullreqdb()
-	return num
+def webreport(request):
+	if request.user.is_authenticated():
+		if request.method == 'GET':
+			latest_part_list = Part.objects.all().order_by('id')
+			nee = [ Parter(latest_part) for latest_part in latest_part_list ]
+			new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
+			return render_to_response('html/hoge.html',
+				{"needs":new,
+				"report":True},
+				context_instance=RequestContext(request))
+		else:
+			maper(request.POST)
+			return HttpResponseRedirect('/Thanks!')
+	else: HttpResponseRedirect('/login')
 
 
