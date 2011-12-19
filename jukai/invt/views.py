@@ -317,6 +317,10 @@ def deletepart(request,part_id):
 
 	#sumlist = reduce((lambda x,y:x+[x[-1]+y]),[partinfo.Mlevneeds,partinfo.Alevneeds,partinfo.Blevneeds,partinfo.Clevneeds],[0])
 
+def deletenullreqdb():
+	latest_req_list = Req.objects.all()
+	reduce((lambda x, y: y.allneeds() == 0 and y.delete() or 0), latest_req_list, 1)
+
 def reportbought(part_id, num):
 	def deleterequestM(partreq,num):
 		pl = partreq
@@ -368,6 +372,7 @@ def reportbought(part_id, num):
 	if num > 0: num = deleterequestA(partreq,num)
 	if num > 0: num = deleterequestB(partreq,num)
 	if num > 0: num = deleterequestC(partreq,num)
+	deletenullreqdb()
 	return num
 
 
