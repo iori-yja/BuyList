@@ -9,63 +9,63 @@ from django.http import HttpResponseRedirect
 from jukai.invt.models import *
 from django.http import HttpResponse
 
-
 def objdelete(partobj):
-	try: partobj.resistor.delete()
-	except:
-		try: partobj.wiring.delete()
-		except:
-			try: partobj.capasitor.delete()
-			except:
-				try: partobj.motor.delete()
-				except:
-					try: partobj.mcu.delete()
-					except:
-						try: partobj.material.delete()
-						except:
-							try: partobj.motor_driver.delete()
-							except:
-								try: partobj.switch.delete()
-								except:
-									try: partobj.regulater.delete()
-									except:
-										try: partobj.subtrace.delete()
-										except:
-											try: partobj.connector.delete()
-											except:
-												try: partobj.other.delete()
-												except: partobj.delete()
+ try: partobj.resistor.delete()
+ except:
+  try: partobj.wiring.delete()
+  except:
+   try: partobj.capasitor.delete()
+   except:
+    try: partobj.motor.delete()
+    except:
+     try: partobj.mcu.delete()
+     except:
+      try: partobj.material.delete()
+      except:
+       try: partobj.motor_driver.delete()
+       except:
+        try: partobj.switch.delete()
+        except:
+         try: partobj.regulater.delete()
+         except:
+          try: partobj.subtrace.delete()
+          except:
+           try: partobj.connector.delete()
+           except:
+            try: partobj.other.delete()
+            except: partobj.delete()
 def mkprop(part):
-	try: prop=part.resistor.mkprop
-	except:
-		try: prop=part.wiring.mkprop
-		except:
-			try: prop=part.capasitor.mkprop
-			except:
-				try: prop=part.motor.mkprop
-				except:
-					try: prop=part.mcu.mkprop
-					except:
-						try: prop=part.material.mkprop
-						except:
-							try: prop=part.motor_driver.mkprop
-							except:
-								try: prop=part.switch.mkprop
-								except:
-									try: prop=part.regulater.mkprop
-									except:
-										try: prop=part.subtrace.mkprop
-										except:
-											try: prop=part.connector.mkprop
-											except:
-												try: prop=part.other.mkprop
-												except: prop="><"
-	return prop
+ try: prop=part.resistor.mkprop
+ except:
+  try: prop=part.wiring.mkprop
+  except:
+   try: prop=part.capasitor.mkprop
+   except:
+    try: prop=part.motor.mkprop
+    except:
+     try: prop=part.mcu.mkprop
+     except:
+      try: prop=part.material.mkprop
+      except:
+       try: prop=part.motor_driver.mkprop
+       except:
+        try: prop=part.switch.mkprop
+        except:
+         try: prop=part.regulater.mkprop
+         except:
+          try: prop=part.subtrace.mkprop
+          except:
+           try: prop=part.connector.mkprop
+           except:
+            try: prop=part.other.mkprop
+            except: prop="><"
+ return prop
 
 class Parter:
 	def __init__(self, latest_part):
 		self.latest_part = latest_part
-		all_req = self.latest_part.req_set.all()
+		self.all_req = self.latest_part.req_set.all()
+		all_req = self.all_req
 		self.up_date = 0
 		self.prop = mkprop(latest_part)
 		if all_req:	self.up_date = all_req[0].up_date
@@ -84,7 +84,7 @@ class Parter:
 			self.Clevneeds = 0
 
 
-class Nudes:
+class Needs:
 	def __init__(self, latest_req):
 		self.latest_part = latest_req.partype
 		self.prop = mkprop(latest_req.partype)
@@ -126,7 +126,7 @@ def index(request):
 
 def new(request,length=10000):
 	latest_req_list = Req.objects.all().order_by('-up_date')[:length]
-	nee = [ Nudes(latest_req) for latest_req in latest_req_list ]
+	nee = [ Needs(latest_req) for latest_req in latest_req_list ]
 	nee = reduce( lambda xs,y: xs if filter(lambda x:x.latest_part==y.latest_part,xs) else xs+[y], nee, [])
 	return render_to_response('html/hoge.html',
 		{'needs': nee,
@@ -315,10 +315,59 @@ def deletepart(request,part_id):
 	else:
 		return HttpResponseRedirect('/Oops')
 
-def reportbought(request,part_id,num):
-	if request.user.is_authenticated():
-		partobj = Part.objects.get(id=part_id)
+	#sumlist = reduce((lambda x,y:x+[x[-1]+y]),[partinfo.Mlevneeds,partinfo.Alevneeds,partinfo.Blevneeds,partinfo.Clevneeds],[0])
 
-		return HttpResponseRedirect('/Thankstobuy')
-	else:
-		return HttpResponseRedirect('/Oops')
+def reportbought(part_id, num):
+	def deleterequestM(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Mnum > num:
+				pl[0].Mnum = partreq.Mnum - num
+			else:
+				num = num - pl[0].Mnum
+				pl[0].Mnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestA(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Anum > num:
+				pl[0].Anum = partreq.Anum - num
+			else:
+				num = num - pl[0].Anum
+				pl[0].Anum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestB(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Bnum > num:
+				pl[0].Bnum = partreq.Bnum - num
+			else:
+				num = num - pl[0].Bnum
+				pl[0].Bnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	def deleterequestC(partreq,num):
+		pl = partreq
+		while pl != [] and num > 0:
+			if pl[0].Cnum > num:
+				pl[0].Cnum = partreq.Cnum - num
+			else:
+				num = num - pl[0].Cnum
+				pl[0].Cnum = 0
+			pl[0].save()
+			pl = pl[1:]
+		return num
+	partobj = Part.objects.get(id=part_id)
+	partreq = Parter(partobj).all_req
+	if num > 0: num = deleterequestM(partreq,num)
+	if num > 0: num = deleterequestA(partreq,num)
+	if num > 0: num = deleterequestB(partreq,num)
+	if num > 0: num = deleterequestC(partreq,num)
+	return num
+
+
