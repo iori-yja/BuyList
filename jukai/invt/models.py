@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 
 #parts_type = (
@@ -128,6 +129,7 @@ class Req(models.Model):
 	partype = models.ForeignKey(Part)
 	pub_date = models.DateTimeField(auto_now=True,auto_now_add=True)
 	up_date = models.DateTimeField(auto_now=True,auto_now_add=False)
+	user = models.ForeignKey(User)
 	#至急度別の数
 	Mnum = models.IntegerField('Immediately')
 	Anum = models.IntegerField('Hurry')
