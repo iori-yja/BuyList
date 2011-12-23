@@ -60,9 +60,10 @@
 	{% else %}
 	常識にそって</td>
 {% endif %}</tr>
-		<tr scope="col"><td>値段</td><td>{{ form.price }}</td></tr>
-		<tr scope="col"><td>お店</td><td>{{ form.shop }}</td></tr>
-		<tr scope="col"><td>参考url</td><td>{{ form.url }}</td></tr>
+		<tr><td>値段</td><td>{{ form.price }}</td></tr>
+		<tr><td>お店</td><td>{{ form.shop }}</td></tr>
+		<tr><td>参考url</td><td>{{ form.url }}</td></tr>
+		<td>{{form.user}}</td>
 	<td>{{ form.pay_by_school }}</td>
 <form method="POST" action="">
 <input type="submit" />

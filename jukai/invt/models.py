@@ -20,7 +20,7 @@ auxiliaryunit = (
 	('G','G'),
 	('M','M'),
 	('K','K'),
-	('-',''),
+	('',''),
 	('m','m'),
 	('u','μ'),
 	('p','p'),
@@ -59,7 +59,7 @@ class Part (models.Model):
 
 class Resistor(Part):
 	ohm  = models.FloatField()
-	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit)
+	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
 	watt = models.CharField(max_length=4) #next issue is here
 	def mkprop(self):
 		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+u"Ω  "+str(self.resistor.watt)+"W"
@@ -69,7 +69,7 @@ class Wiring(Part):
 	partype = models.CharField(max_length=20)
 	phi     = models.FloatField()
 	length  = models.FloatField()
-	lensuf  = models.CharField(max_length=2,choices=auxiliaryunit)
+	lensuf  = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
 	def mkprop(self):
 		prop=str(self.wiring.phi)+"mm"+u"の"+self.wiring.partype+str(self.wiring.length)+u"m分"
 		return prop
@@ -77,7 +77,7 @@ class Capasitor(Part):
 	partype = models.CharField(max_length=20,blank=True)
 	volt    = models.IntegerField()
 	farad   = models.FloatField()
-	farsuf  = models.CharField(max_length=2,choices=auxiliaryunit)
+	farsuf  = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
 	def mkprop(self):
 		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
 		return prop
@@ -150,6 +150,7 @@ class Butsutsu(ModelForm):
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
+		exclude = ('user',)
 class ReqForm(ModelForm):
 	class Meta:
 		model = Req
@@ -158,39 +159,51 @@ class ReqForm(ModelForm):
 class ResistorForm(ModelForm):
 	class Meta:
 		model = Resistor
+		exclude = ('user',)
 class WiringForm(ModelForm):
 	class Meta:
 		model = Wiring
+		exclude = ('user',)
 class CapasitorForm(ModelForm):
 	class Meta:
 		model = Capasitor
+		exclude = ('user',)
 class MotorForm(ModelForm):
 	class Meta:
 		model = Motor
+		exclude = ('user',)
 class McuForm(ModelForm):
 	class Meta:
 		model = Mcu
+		exclude = ('user',)
 class MaterialForm(ModelForm):
 	class Meta:
 		model = Material
+		exclude = ('user',)
 class Motor_driverForm(ModelForm):
 	class Meta:
 		model = Motor_driver
+		exclude = ('user',)
 class SwitchForm(ModelForm):
 	class Meta:
 		model = Switch
+		exclude = ('user',)
 class RegulaterForm(ModelForm):
 	class Meta:
 		model = Regulater
+		exclude = ('user',)
 class SubtraceForm(ModelForm):
 	class Meta:
 		model = Subtrace
+		exclude = ('user',)
 class ConnectorForm(ModelForm):
 	class Meta:
 		model = Connector
+		exclude = ('user',)
 class OtherForm(ModelForm):
 	class Meta:
 		model = Other
+		exclude = ('user',)
 
 from django.contrib import admin
 admin.site.register(Part)

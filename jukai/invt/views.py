@@ -283,7 +283,7 @@ def getformwitharg(sp,*arg,**kwarg):
 		Form = OtherForm(*arg,**kwarg)
 	return Form
 
-def getobj(sp):
+def newobj(sp):
 	if( sp == 'resis'):
 		obj = Resistor()
 	if( sp == 'wire'):
@@ -318,16 +318,17 @@ def partadd(request,sp='none'):
 	getformwitharg is a function to create a instance from...
 	"""
 	if request.user.is_authenticated():
-		if sp != 'none': partobj = getobj(sp)
+		if sp != 'none':
+			partobj = newobj(sp)
+			partobj.user = User.objects.get(id=2)
 		if request.method == 'POST':
 			new_part = getformwitharg(sp,request.POST,instance=partobj)
-			new_part.user = User.objects.get(id=2)
 			if new_part.is_valid():
 				new_part.save()
 				return HttpResponseRedirect('/registered')
 			else:
 				return HttpResponseRedirect('/Oops')
-		else: #Get Method
+		else: #GET Method
 			if sp == 'none':
 				return render_to_response('html/addchoice.html',
 					context_instance=RequestContext(request)
