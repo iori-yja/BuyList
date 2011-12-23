@@ -312,16 +312,22 @@ def getobj(sp):
 
 
 def partadd(request,sp='none'):
+	"""
+	This method is called when user pull a form to create new part, and to post it.
+	User must be authenticated.
+	getformwitharg is a function to create a instance from...
+	"""
 	if request.user.is_authenticated():
 		if sp != 'none': partobj = getobj(sp)
 		if request.method == 'POST':
 			new_part = getformwitharg(sp,request.POST,instance=partobj)
+			new_part.user = User.objects.get(id=2)
 			if new_part.is_valid():
 				new_part.save()
 				return HttpResponseRedirect('/registered')
 			else:
 				return HttpResponseRedirect('/Oops')
-		else:
+		else: #Get Method
 			if sp == 'none':
 				return render_to_response('html/addchoice.html',
 					context_instance=RequestContext(request)

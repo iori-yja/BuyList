@@ -53,13 +53,14 @@ class Part (models.Model):
 	adress = models.EmailField(max_length=140,blank=True)#登録者のメールアドレス
 	url = models.CharField(max_length=400,blank=True)#注意書きや解説記事へのリファレンス
 	pay_by_school = models.BooleanField()#部費か?
+	user = models.ForeignKey(User,related_name='+')
 	def __unicode__(self):
 		return self.name
 
 class Resistor(Part):
 	ohm  = models.FloatField()
 	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit)
-	watt = models.IntegerField() #next issue is here
+	watt = models.CharField(max_length=4) #next issue is here
 	def mkprop(self):
 		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+u"Ω  "+str(self.resistor.watt)+"W"
 		return prop
