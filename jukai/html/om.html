@@ -53,8 +53,17 @@
 	{% ifequal decent "con" %}
 	種類{{ form.partype }}
 	{% endifequal%}
+	{% ifequal decent "sens" %}
+	わかりやすく
+	説明{{ form.partype }}
+	{% endifequal%}
+	{% ifequal decent "tool" %}
+	わかりやすく
+	説明{{ form.partype }}
+	{% endifequal%}
 	{% ifequal decent "other" %}
 	わかりやすく
+	説明{{ form.partype }}
 	{% endifequal%}
 </td>
 	{% else %}

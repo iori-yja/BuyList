@@ -9,57 +9,6 @@ from django.http import HttpResponseRedirect
 from jukai.invt.models import *
 from django.http import HttpResponse
 
-def objdelete(partobj):
- try: partobj.resistor.delete()
- except:
-  try: partobj.wiring.delete()
-  except:
-   try: partobj.capasitor.delete()
-   except:
-    try: partobj.motor.delete()
-    except:
-     try: partobj.mcu.delete()
-     except:
-      try: partobj.material.delete()
-      except:
-       try: partobj.motor_driver.delete()
-       except:
-        try: partobj.switch.delete()
-        except:
-         try: partobj.regulater.delete()
-         except:
-          try: partobj.subtrace.delete()
-          except:
-           try: partobj.connector.delete()
-           except:
-            try: partobj.other.delete()
-            except: partobj.delete()
-def mkprop(part):
- try: prop=part.resistor.mkprop
- except:
-  try: prop=part.wiring.mkprop
-  except:
-   try: prop=part.capasitor.mkprop
-   except:
-    try: prop=part.motor.mkprop
-    except:
-     try: prop=part.mcu.mkprop
-     except:
-      try: prop=part.material.mkprop
-      except:
-       try: prop=part.motor_driver.mkprop
-       except:
-        try: prop=part.switch.mkprop
-        except:
-         try: prop=part.regulater.mkprop
-         except:
-          try: prop=part.subtrace.mkprop
-          except:
-           try: prop=part.connector.mkprop
-           except:
-            try: prop=part.other.mkprop
-            except: prop="><"
- return prop
 
 class Parter:
 	def __init__(self, latest_part):
@@ -234,94 +183,6 @@ def partadd(request,sp='none'):
 	This method is called when user pull a form to create new part, and to post it.
 	User must be authenticated.
 	"""
-	def getform(sp):
-		"""
-		This make a various form of many type of parts
-		"""
-		if( sp == 'resis'):
-			Form = ResistorForm()
-		if( sp == 'wire'):
-			Form = WiringForm()
-		if( sp == 'motor'):
-			Form = MotorForm()
-		if( sp == 'capas'):
-			Form = CapasitorForm()
-		if( sp == 'motod'):
-			Form = Motor_driverForm()
-		if( sp == 'switch'):
-			Form = SwitchForm()
-		if( sp == 'reg'):
-			Form = RegulaterForm()
-		if( sp == 'mat'):
-			Form = MaterialForm()
-		if( sp == 'subt'):
-			Form = SubtraceForm()
-		if( sp == 'mcu'):
-			Form = McuForm()
-		if( sp == 'con'):
-			Form = ConnectorForm()
-		if( sp == 'other'):
-			Form = OtherForm()
-		return Form
-	
-	def getformwitharg(sp,*arg,**kwarg):
-		"""
-		This make a various form of many type of parts
-		and **kwargs means keyword arguments
-		"""
-		if( sp == 'resis'):
-			Form = ResistorForm(*arg,**kwarg)
-		if( sp == 'wire'):
-			Form = WiringForm(*arg,**kwarg)
-		if( sp == 'motor'):
-			Form = MotorForm(*arg,**kwarg)
-		if( sp == 'capas'):
-			Form = CapasitorForm(*arg,**kwarg)
-		if( sp == 'motod'):
-			Form = Motor_driverForm(*arg,**kwarg)
-		if( sp == 'switch'):
-			Form = SwitchForm(*arg,**kwarg)
-		if( sp == 'reg'):
-			Form = RegulaterForm(*arg,**kwarg)
-		if( sp == 'mat'):
-			Form = MaterialForm(*arg,**kwarg)
-		if( sp == 'subt'):
-			Form = SubtraceForm(*arg,**kwarg)
-		if( sp == 'mcu'):
-			Form = McuForm(*arg,**kwarg)
-		if( sp == 'con'):
-			Form = ConnectorForm(*arg,**kwarg)
-		if( sp == 'other'):
-			Form = OtherForm(*arg,**kwarg)
-		return Form
-	
-	def newobj(sp):
-		if( sp == 'resis'):
-			obj = Resistor()
-		if( sp == 'wire'):
-			obj = Wiring()
-		if( sp == 'motor'):
-			obj = Motor()
-		if( sp == 'capas'):
-			obj = Capasitor()
-		if( sp == 'motod'):
-			obj = Motor_driver()
-		if( sp == 'switch'):
-			obj = Switch()
-		if( sp == 'reg'):
-			obj = Regulater()
-		if( sp == 'mat'):
-			obj = Material()
-		if( sp == 'subt'):
-			obj = Subtrace()
-		if( sp == 'mcu'):
-			obj = Mcu()
-		if( sp == 'con'):
-			obj = Connector()
-		if( sp == 'other'):
-			obj = Other()
-		return obj
-
 	if request.user.is_authenticated():
 		if request.method == 'POST':
 			partobj = newobj(sp)
@@ -400,7 +261,6 @@ def webreport(request):
 			return HttpResponseRedirect('/Thanks!')
 	else: HttpResponseRedirect('/login')
 
-
 def user(request,user_id='none'):
 	if user_id=='none':
 		if request.user.is_authenticated():
@@ -408,6 +268,7 @@ def user(request,user_id='none'):
 		else:
 			return HttpResponseRedirect('/login')
 	else:
+		if request.user.is_authenticated():
 			return render_to_response('html/user.html',
 				{"requests":requests,
 				 "parts":parts,

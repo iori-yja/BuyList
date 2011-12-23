@@ -46,6 +46,8 @@ decent_spp = (
 	('other','otherelectorical parts'),
 )
 
+def panic():
+	pass
 class Part (models.Model):
 	name = models.CharField(max_length=20)
 	price = models.IntegerField()
@@ -222,6 +224,14 @@ class ConnectorForm(ModelForm):
 	class Meta:
 		model = Connector
 		exclude = ('user',)
+class ToolForm(ModelForm):
+	class Meta:
+		model = Tool
+		exclude = ('user',)
+class SensorForm(ModelForm):
+	class Meta:
+		model = Sensor
+		exclude = ('user',)
 class OtherForm(ModelForm):
 	class Meta:
 		model = Other
@@ -238,7 +248,171 @@ admin.site.register(Mcu)
 admin.site.register(Material)
 admin.site.register(Motor_driver)
 admin.site.register(Switch)
+admin.site.register(Sensor)
+admin.site.register(Tool)
 admin.site.register(Regulater)
 admin.site.register(Subtrace)
 admin.site.register(Connector)
 admin.site.register(Other)
+
+def objdelete(partobj):
+ try: partobj.resistor.delete()
+ except:
+  try: partobj.wiring.delete()
+  except:
+   try: partobj.capasitor.delete()
+   except:
+    try: partobj.motor.delete()
+    except:
+     try: partobj.mcu.delete()
+     except:
+      try: partobj.material.delete()
+      except:
+       try: partobj.motor_driver.delete()
+       except:
+        try: partobj.switch.delete()
+        except:
+         try: partobj.regulater.delete()
+         except:
+          try: partobj.subtrace.delete()
+          except:
+           try: partobj.connector.delete()
+           except:
+            try: partobj.other.delete()
+            except:
+	     try: partobj.tool.delete()
+	     except:
+	      try: partobj.sensor.delete()
+	      except:
+	       panic()
+
+def mkprop(part):
+ try: prop=part.resistor.mkprop
+ except:
+  try: prop=part.wiring.mkprop
+  except:
+   try: prop=part.capasitor.mkprop
+   except:
+    try: prop=part.motor.mkprop
+    except:
+     try: prop=part.mcu.mkprop
+     except:
+      try: prop=part.material.mkprop
+      except:
+       try: prop=part.motor_driver.mkprop
+       except:
+        try: prop=part.switch.mkprop
+        except:
+         try: prop=part.regulater.mkprop
+         except:
+          try: prop=part.subtrace.mkprop
+          except:
+           try: prop=part.connector.mkprop
+           except:
+            try: prop=part.other.mkprop
+            except:
+	     try: prop=part.tool.mkprop
+	     except:
+	      try: prop=part.sensor.mkprop
+	      except: panic()
+ return prop
+def getform(sp):
+	"""
+	This make a various form of many type of parts
+	"""
+	if( sp == 'resis'):
+		Form = ResistorForm()
+	if( sp == 'wire'):
+		Form = WiringForm()
+	if( sp == 'motor'):
+		Form = MotorForm()
+	if( sp == 'capas'):
+		Form = CapasitorForm()
+	if( sp == 'motod'):
+		Form = Motor_driverForm()
+	if( sp == 'switch'):
+		Form = SwitchForm()
+	if( sp == 'reg'):
+		Form = RegulaterForm()
+	if( sp == 'mat'):
+		Form = MaterialForm()
+	if( sp == 'subt'):
+		Form = SubtraceForm()
+	if( sp == 'mcu'):
+		Form = McuForm()
+	if( sp == 'con'):
+		Form = ConnectorForm()
+	if( sp == 'tool'):
+		Form = ToolForm()
+	if( sp == 'sens'):
+		Form = SensorForm()
+	if( sp == 'other'):
+		Form = OtherForm()
+	return Form
+
+def getformwitharg(sp,*arg,**kwarg):
+	"""
+	This make a various form of many type of parts
+	and **kwargs means keyword arguments
+	"""
+	if( sp == 'resis'):
+		Form = ResistorForm(*arg,**kwarg)
+	if( sp == 'wire'):
+		Form = WiringForm(*arg,**kwarg)
+	if( sp == 'motor'):
+		Form = MotorForm(*arg,**kwarg)
+	if( sp == 'capas'):
+		Form = CapasitorForm(*arg,**kwarg)
+	if( sp == 'motod'):
+		Form = Motor_driverForm(*arg,**kwarg)
+	if( sp == 'switch'):
+		Form = SwitchForm(*arg,**kwarg)
+	if( sp == 'reg'):
+		Form = RegulaterForm(*arg,**kwarg)
+	if( sp == 'mat'):
+		Form = MaterialForm(*arg,**kwarg)
+	if( sp == 'subt'):
+		Form = SubtraceForm(*arg,**kwarg)
+	if( sp == 'mcu'):
+		Form = McuForm(*arg,**kwarg)
+	if( sp == 'con'):
+		Form = ConnectorForm(*arg,**kwarg)
+	if( sp == 'tool'):
+		Form = ToolForm(*arg,**kwarg)
+	if( sp == 'sens'):
+		Form = SensorForm(*arg,**kwarg)
+	if( sp == 'other'):
+		Form = OtherForm(*arg,**kwarg)
+	return Form
+
+def newobj(sp):
+	if( sp == 'resis'):
+		obj = Resistor()
+	if( sp == 'wire'):
+		obj = Wiring()
+	if( sp == 'motor'):
+		obj = Motor()
+	if( sp == 'capas'):
+		obj = Capasitor()
+	if( sp == 'motod'):
+		obj = Motor_driver()
+	if( sp == 'switch'):
+		obj = Switch()
+	if( sp == 'reg'):
+		obj = Regulater()
+	if( sp == 'mat'):
+		obj = Material()
+	if( sp == 'subt'):
+		obj = Subtrace()
+	if( sp == 'mcu'):
+		obj = Mcu()
+	if( sp == 'con'):
+		obj = Connector()
+	if( sp == 'tool'):
+		obj = Tool()
+	if( sp == 'sens'):
+		obj = Sensor()
+	if( sp == 'other'):
+		obj = Other()
+	return obj
+
