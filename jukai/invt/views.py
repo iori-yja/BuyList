@@ -186,7 +186,7 @@ def partadd(request,sp='none'):
 	if request.user.is_authenticated():
 		if request.method == 'POST':
 			partobj = newobj(sp)
-			partobj.user = User.objects.get(id=2)
+			partobj.user = request.user
 			new_part = getformwitharg(sp,request.POST,instance=partobj)
 			if new_part.is_valid():
 				new_part.save()
@@ -212,7 +212,7 @@ def request(request,part_id):
 	if request.user.is_authenticated():
 		reqobj = Req()
 		reqobj.partype = Part.objects.get(id=part_id)
-		reqobj.user = User.objects.get(id=2)
+		reqobj.user = request.user
 		if request.method == 'POST':
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
@@ -269,8 +269,10 @@ def user(request,user_id='none'):
 			return HttpResponseRedirect('/login')
 	else:
 		if request.user.is_authenticated():
-			parts = filter(lambda x:x.user.id==user_id,Part.objects.all())
-			requests = filter(lambda x:x.user.id==user_id,Req.objects.all())
+			parts = filter(lambda x:str(x.user.id)==user_id,Part.objects.all())
+			parts = [ Parter(part) for part in parts ]
+			requests = filter(lambda x:str(x.user.id)==user_id,Req.objects.all())
+			requests = [ Reqlist(req) for req in requests ]
 			return render_to_response('html/user.html',
 				{"requests":requests,
 				 "parts":parts,

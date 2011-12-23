@@ -178,7 +178,7 @@ class PartForm(ModelForm):
 class ReqForm(ModelForm):
 	class Meta:
 		model = Req
-		exclude = ('partype','up_date','pub_date',)
+		exclude = ('user','partype','up_date','pub_date',)
 
 class ResistorForm(ModelForm):
 	class Meta:
