@@ -76,7 +76,9 @@ class Wiring(Part):
 
 ##########センサ
 class Sensor(Part):###################################################################################
-	pass
+	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.sensor.partype
 ##########コネクタ
 class Connector(Part):
 	partype = models.CharField(max_length=200)
@@ -118,10 +120,8 @@ class Capasitor(Part):
 	def mkprop(self):
 		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
 		return prop
-class Otherelement(Part):#####################################################################################
-	pass
 
-##########工具###################################################################################
+##########ツール###################################################################################
 class Tool(Part):
 	partype = models.CharField(max_length=20)
 	def mkprop(self):
