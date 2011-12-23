@@ -103,7 +103,7 @@ class Switch(Part):
 		return self.switch.partype
 class Regulater(Part):
 	partnum = models.CharField(max_length=20)
-	volt    = models.IntegerField(blank=True)
+	volt    = models.DecimalField(max_digits=4,decimal_places=3,blank=True)
 	def mkprop(self):
 		if self.regulater.volt == None:
 			voltmsg=u"電圧未記入"

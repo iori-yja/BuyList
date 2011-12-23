@@ -229,99 +229,103 @@ def editor(request,part_id):
 	else:
 		return HttpResponseRedirect('/login')
 
-def getform(sp):
-	if( sp == 'resis'):
-		Form = ResistorForm()
-	if( sp == 'wire'):
-		Form = WiringForm()
-	if( sp == 'motor'):
-		Form = MotorForm()
-	if( sp == 'capas'):
-		Form = CapasitorForm()
-	if( sp == 'motod'):
-		Form = Motor_driverForm()
-	if( sp == 'switch'):
-		Form = SwitchForm()
-	if( sp == 'reg'):
-		Form = RegulaterForm()
-	if( sp == 'mat'):
-		Form = MaterialForm()
-	if( sp == 'subt'):
-		Form = SubtraceForm()
-	if( sp == 'mcu'):
-		Form = McuForm()
-	if( sp == 'con'):
-		Form = ConnectorForm()
-	if( sp == 'other'):
-		Form = OtherForm()
-	return Form
-
-def getformwitharg(sp,*arg,**kwarg):
-	if( sp == 'resis'):
-		Form = ResistorForm(*arg,**kwarg)
-	if( sp == 'wire'):
-		Form = WiringForm(*arg,**kwarg)
-	if( sp == 'motor'):
-		Form = MotorForm(*arg,**kwarg)
-	if( sp == 'capas'):
-		Form = CapasitorForm(*arg,**kwarg)
-	if( sp == 'motod'):
-		Form = Motor_driverForm(*arg,**kwarg)
-	if( sp == 'switch'):
-		Form = SwitchForm(*arg,**kwarg)
-	if( sp == 'reg'):
-		Form = RegulaterForm(*arg,**kwarg)
-	if( sp == 'mat'):
-		Form = MaterialForm(*arg,**kwarg)
-	if( sp == 'subt'):
-		Form = SubtraceForm(*arg,**kwarg)
-	if( sp == 'mcu'):
-		Form = McuForm(*arg,**kwarg)
-	if( sp == 'con'):
-		Form = ConnectorForm(*arg,**kwarg)
-	if( sp == 'other'):
-		Form = OtherForm(*arg,**kwarg)
-	return Form
-
-def newobj(sp):
-	if( sp == 'resis'):
-		obj = Resistor()
-	if( sp == 'wire'):
-		obj = Wiring()
-	if( sp == 'motor'):
-		obj = Motor()
-	if( sp == 'capas'):
-		obj = Capasitor()
-	if( sp == 'motod'):
-		obj = Motor_driver()
-	if( sp == 'switch'):
-		obj = Switch()
-	if( sp == 'reg'):
-		obj = Regulater()
-	if( sp == 'mat'):
-		obj = Material()
-	if( sp == 'subt'):
-		obj = Subtrace()
-	if( sp == 'mcu'):
-		obj = Mcu()
-	if( sp == 'con'):
-		obj = Connector()
-	if( sp == 'other'):
-		obj = Other()
-	return obj
-
-
 def partadd(request,sp='none'):
 	"""
 	This method is called when user pull a form to create new part, and to post it.
 	User must be authenticated.
-	getformwitharg is a function to create a instance from...
 	"""
+	def getform(sp):
+		"""
+		This make a various form of many type of parts
+		"""
+		if( sp == 'resis'):
+			Form = ResistorForm()
+		if( sp == 'wire'):
+			Form = WiringForm()
+		if( sp == 'motor'):
+			Form = MotorForm()
+		if( sp == 'capas'):
+			Form = CapasitorForm()
+		if( sp == 'motod'):
+			Form = Motor_driverForm()
+		if( sp == 'switch'):
+			Form = SwitchForm()
+		if( sp == 'reg'):
+			Form = RegulaterForm()
+		if( sp == 'mat'):
+			Form = MaterialForm()
+		if( sp == 'subt'):
+			Form = SubtraceForm()
+		if( sp == 'mcu'):
+			Form = McuForm()
+		if( sp == 'con'):
+			Form = ConnectorForm()
+		if( sp == 'other'):
+			Form = OtherForm()
+		return Form
+	
+	def getformwitharg(sp,*arg,**kwarg):
+		"""
+		This make a various form of many type of parts
+		and **kwargs means keyword arguments
+		"""
+		if( sp == 'resis'):
+			Form = ResistorForm(*arg,**kwarg)
+		if( sp == 'wire'):
+			Form = WiringForm(*arg,**kwarg)
+		if( sp == 'motor'):
+			Form = MotorForm(*arg,**kwarg)
+		if( sp == 'capas'):
+			Form = CapasitorForm(*arg,**kwarg)
+		if( sp == 'motod'):
+			Form = Motor_driverForm(*arg,**kwarg)
+		if( sp == 'switch'):
+			Form = SwitchForm(*arg,**kwarg)
+		if( sp == 'reg'):
+			Form = RegulaterForm(*arg,**kwarg)
+		if( sp == 'mat'):
+			Form = MaterialForm(*arg,**kwarg)
+		if( sp == 'subt'):
+			Form = SubtraceForm(*arg,**kwarg)
+		if( sp == 'mcu'):
+			Form = McuForm(*arg,**kwarg)
+		if( sp == 'con'):
+			Form = ConnectorForm(*arg,**kwarg)
+		if( sp == 'other'):
+			Form = OtherForm(*arg,**kwarg)
+		return Form
+	
+	def newobj(sp):
+		if( sp == 'resis'):
+			obj = Resistor()
+		if( sp == 'wire'):
+			obj = Wiring()
+		if( sp == 'motor'):
+			obj = Motor()
+		if( sp == 'capas'):
+			obj = Capasitor()
+		if( sp == 'motod'):
+			obj = Motor_driver()
+		if( sp == 'switch'):
+			obj = Switch()
+		if( sp == 'reg'):
+			obj = Regulater()
+		if( sp == 'mat'):
+			obj = Material()
+		if( sp == 'subt'):
+			obj = Subtrace()
+		if( sp == 'mcu'):
+			obj = Mcu()
+		if( sp == 'con'):
+			obj = Connector()
+		if( sp == 'other'):
+			obj = Other()
+		return obj
+
 	if request.user.is_authenticated():
-		if sp != 'none':
+		if request.method == 'POST':
 			partobj = newobj(sp)
 			partobj.user = User.objects.get(id=2)
-		if request.method == 'POST':
 			new_part = getformwitharg(sp,request.POST,instance=partobj)
 			if new_part.is_valid():
 				new_part.save()
@@ -347,6 +351,7 @@ def request(request,part_id):
 	if request.user.is_authenticated():
 		reqobj = Req()
 		reqobj.partype = Part.objects.get(id=part_id)
+		reqobj.user = User.objects.get(id=2)
 		if request.method == 'POST':
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
