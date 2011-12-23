@@ -1,8 +1,8 @@
+import datetime
+import operator
 from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-import datetime
-import operator
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -269,12 +269,11 @@ def user(request,user_id='none'):
 			return HttpResponseRedirect('/login')
 	else:
 		if request.user.is_authenticated():
+			parts = filter(lambda x:x.user.id==user_id,Part.objects.all())
+			requests = filter(lambda x:x.user.id==user_id,Req.objects.all())
 			return render_to_response('html/user.html',
 				{"requests":requests,
 				 "parts":parts,
-				 "articles":articles,
-				 "post":posts,
-				 "info":info,
 				},
 				context_instance=RequestContext(request))
 
