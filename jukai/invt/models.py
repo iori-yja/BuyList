@@ -57,6 +57,7 @@ class Part (models.Model):
 	def __unicode__(self):
 		return self.name
 
+##########回路素子
 class Resistor(Part):
 	ohm  = models.FloatField()
 	ohmsuf = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
@@ -65,14 +66,6 @@ class Resistor(Part):
 		prop=str(self.resistor.ohm)+str(self.resistor.ohmsuf)+u"Ω  "+str(self.resistor.watt)+"W"
 		return prop
 
-class Wiring(Part):
-	partype = models.CharField(max_length=20)
-	phi     = models.FloatField()
-	length  = models.FloatField()
-	lensuf  = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
-	def mkprop(self):
-		prop=str(self.wiring.phi)+"mm"+u"の"+self.wiring.partype+str(self.wiring.length)+u"m分"
-		return prop
 class Capasitor(Part):
 	partype = models.CharField(max_length=20,blank=True)
 	volt    = models.IntegerField()
@@ -81,6 +74,38 @@ class Capasitor(Part):
 	def mkprop(self):
 		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
 		return prop
+class Otherelement(Part):#####################################################################################
+
+##########基板
+class Subtrace(Part):
+	bdsize  = models.CharField(max_length=20,blank=True)#AとかBとかCとか
+	partype = models.CharField(max_length=20,blank=True)#ユニバーサルとかプリント基板とか
+	def mkprop(self):
+		prop=self.capasitor.partype+"  "+self.capasitor.volt
+		return prop
+##########配線
+class Wiring(Part):
+	partype = models.CharField(max_length=20)
+	phi     = models.FloatField()
+	length  = models.FloatField()
+	lensuf  = models.CharField(max_length=2,choices=auxiliaryunit,blank=True)
+	def mkprop(self):
+		prop=str(self.wiring.phi)+"mm"+u"の"+self.wiring.partype+str(self.wiring.length)+u"m分"
+		return prop
+
+##########コネクタ
+class Connector(Part):
+	partype = models.CharField(max_length=200)
+	def mkprop(self):
+		return self.connector.partype
+##########工具
+class Tool(Part):###################################################################################
+	partype = models.CharField(max_length=20)
+	def mkprop(self):
+		return self.tool.partype
+
+##########工具
+##########工具
 class Motor(Part):
 	partype = models.CharField(max_length=200)
 	def mkprop(self):
@@ -89,18 +114,17 @@ class Mcu(Part):
 	partype = models.CharField(max_length=30)
 	def mkprop(self):
 		return self.mcu.partype
+##########工具
 class Material(Part):
 	partype = models.CharField(max_length=200)
 	def mkprop(self):
 		return self.material.partype
-class Motor_driver(Part):
-	partype = models.CharField(max_length=20)
-	def mkprop(self):
-		return self.motor_driver.partype
+##########工具
 class Switch(Part):
 	partype = models.CharField(max_length=20)
 	def mkprop(self):
 		return self.switch.partype
+##########工具
 class Regulater(Part):
 	partnum = models.CharField(max_length=20)
 	volt    = models.DecimalField(max_digits=4,decimal_places=3,blank=True)
@@ -111,16 +135,10 @@ class Regulater(Part):
 			voltmsg="("+str(self.regulater.volt)+")"
 		prop=u"型番"+self.regulater.farad+u"の"+u"レギュレータ"+voltmsg
 		return prop
-class Subtrace(Part):
-	bdsize  = models.CharField(max_length=20)
-	partype = models.CharField(max_length=20,blank=True)
+class Motor_driver(Part):
+	partype = models.CharField(max_length=20)
 	def mkprop(self):
-		prop=self.capasitor.partype+"  "+self.capasitor.volt
-		return prop
-class Connector(Part):
-	partype = models.CharField(max_length=200)
-	def mkprop(self):
-		return self.connector.partype
+		return self.motor_driver.partype
 class Other(Part):
 	partype = models.CharField(max_length=200)
 	def mkprop(self):

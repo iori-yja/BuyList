@@ -401,3 +401,19 @@ def webreport(request):
 	else: HttpResponseRedirect('/login')
 
 
+def user(request,user_id='none'):
+	if user_id=='none':
+		if request.user.is_authenticated():
+			return HttpResponseRedirect(('/jukai/user/'+str(request.user.id)))
+		else:
+			return HttpResponseRedirect('/login')
+	else:
+			return render_to_response('html/user.html',
+				{"requests":requests,
+				 "parts":parts,
+				 "articles":articles,
+				 "post":posts,
+				 "info":info,
+				},
+				context_instance=RequestContext(request))
+
