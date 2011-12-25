@@ -6,8 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
-from jukai.invt.models import *
 from django.http import HttpResponse
+from jukai.invt.models import *
 
 
 class Parter:
@@ -272,7 +272,7 @@ def user(request,user_id='none'):
 			parts = filter(lambda x:str(x.user.id)==user_id,Part.objects.all())
 			parts = [ Parter(part) for part in parts ]
 			requests = filter(lambda x:str(x.user.id)==user_id,Req.objects.all())
-			requests = [ Reqlist(req) for req in requests ]
+			requests = [ Needs(req) for req in requests ]
 			return render_to_response('html/user.html',
 				{"requests":requests,
 				 "parts":parts,

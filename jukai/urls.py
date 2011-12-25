@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'jukai/admin/', include(admin.site.urls)),
-    url(r'^jukai/(\d+)','jukai.invt.views.editor'),
+    url(r'^jukai/edit/(\d+)','jukai.invt.views.editor'),
     url(r'^jukai/$','jukai.invt.views.index'),
     url(r'^jukai/new/(\d+)','jukai.invt.views.new'),
     url(r'^jukai/new/','jukai.invt.views.new'),
