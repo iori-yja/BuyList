@@ -156,6 +156,24 @@ def popular(request,length=10000):
 		'length': length},
 		context_instance=RequestContext(request)
 		)
+def user(request,user_id='none'):
+	if user_id=='none':
+		if request.user.is_authenticated():
+			return HttpResponseRedirect(('/jukai/user/'+str(request.user.id)))
+		else:
+			return HttpResponseRedirect('/login')
+	else:
+		if request.user.is_authenticated():
+			parts = filter(lambda x:str(x.user.id)==user_id,Part.objects.all())
+			parts = [ Parter(part) for part in parts ]
+			requests = filter(lambda x:str(x.user.id)==user_id,Req.objects.all())
+			requests = [ Needs(req) for req in requests ]
+			return render_to_response('html/user.html',
+				{"requests":requests,
+				 "parts":parts,
+				},
+				context_instance=RequestContext(request))
+
 def editor(request,part_id):
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
@@ -260,22 +278,4 @@ def webreport(request):
 			maper(request.POST)
 			return HttpResponseRedirect('/Thanks!')
 	else: HttpResponseRedirect('/login')
-
-def user(request,user_id='none'):
-	if user_id=='none':
-		if request.user.is_authenticated():
-			return HttpResponseRedirect(('/jukai/user/'+str(request.user.id)))
-		else:
-			return HttpResponseRedirect('/login')
-	else:
-		if request.user.is_authenticated():
-			parts = filter(lambda x:str(x.user.id)==user_id,Part.objects.all())
-			parts = [ Parter(part) for part in parts ]
-			requests = filter(lambda x:str(x.user.id)==user_id,Req.objects.all())
-			requests = [ Needs(req) for req in requests ]
-			return render_to_response('html/user.html',
-				{"requests":requests,
-				 "parts":parts,
-				},
-				context_instance=RequestContext(request))
 
