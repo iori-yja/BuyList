@@ -9,7 +9,6 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from jukai.invt.models import *
 
-
 class Parter:
 	def __init__(self, latest_part):
 		self.latest_part = latest_part
