@@ -34,6 +34,7 @@
 		<a href="/jukai/pop">人気の部品</a>
 		<a href="/jukai/report">買出し報告</a>
 		<a href="/jukai/user">ユーザのページ</a>
+		<a href="/accounts/register">登録</a>
 		検索
 		{% if user.is_authenticated %}
 		{{ user.username }}
@@ -75,5 +76,30 @@
 </div>
 </div>
 </div>
+<div id="content">
+<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
 {% block main %}{% endblock %}
+<td valign="top" width="100" cellpadding="0">
+	<h1>メニュー</h1>
+	<a href="/jukai/add">部品を追加する</a><br>
+	<a href="/jukai/new">最近注文があった順</a><br>
+	<a href="/jukai/reqs">最近の注文</a><br>
+	<a href="/jukai/pop">人気の部品</a><br>
+	検索<br>
+		<a href="/jukai/report">買出し報告</a>
+	<h1>アカウント</h1>
+	{% if user.is_authenticated %}<br>
+	{{ user.username }}
+	<a href="/logout">ログアウト</a><br>
+	{% else %}<br>
+	<a href="/login">ログイン</a><br>
+	{% endif %}<br>
+	<a href="/jukai/user">ユーザのページ</a><br>
+	<a href="/accounts/register">登録</a><br>
+	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
+	<div id="albox"><div style="background-color:#333333" onClick="hidealbox()">×<br><iframe width="160" height="260" frameborder=0 scrolling=no id="fuga"></iframe></div></div>
+</tbody>
+</table>
+</div>
+</body>
 </html>

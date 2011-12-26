@@ -32,11 +32,9 @@ function hidealbox(){
 }
 // -->
 </script>
-<div id="content">
-<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr>
 		<td width="200"><h1>買出しリスト</h1>
 			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
-		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにチェックを入れて、その数を記入してください{% else %}
+		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにチェックを入れて、その数を記入してください{% else %}{% if top %}
 		What's this?
 		</h2>
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
@@ -58,7 +56,7 @@ function hidealbox(){
 		メーリングリストで僕にきくか、<a href="http://iorivr.dyndns.org:8080/redmine/projects/jukai-list/">redmine</a>を活用してください。
 		部品を消す機能は、部品のeditを押し、~/jukai/(id)となっているアドレスを~/jukai/deletepart/(id)とするとその部品は消えます。<br>
 		要素別のソートはだれかjavascriptで書いてください。その他にはredmineを参照してください。<br>
-		<td>{% endif %}{% endif%}{% endif%}{% endif%} 
+		<td>{% endif %}{% endif%}{% endif%}{% endif%}</h2>{% endif %}
 			<table>
 			<thead><tr>
 			{% if report %}
@@ -110,23 +108,4 @@ function hidealbox(){
 		</tbody>
 		</table>
 	</td>
-<td valign="top" width="100" cellpadding="0">
-	<h1>メニュー</h1>
-	<a href="/jukai/add">部品を追加する</a><br>
-	<a href="/jukai/new">最近注文があった順</a><br>
-	<a href="/jukai/reqs">最近の注文</a><br>
-	<a href="/jukai/pop">人気の部品</a><br>
-	検索<br>
-	{% if user.is_authenticated %}<br>
-	{{ user.username }}<br>
-	{% else %}<br>
-	<a href="/django/login">ログイン</a><br>
-	{% endif %}<br>
-	<a href="/django/logout">ログアウト</a><br>
-	<a href="http://iorivr.dyndns.org/django/jukai/admin">管理</a><br>
-	<div id="albox"><div style="background-color:#333333" onClick="hidealbox()">×<br><iframe width="160" height="260" frameborder=0 scrolling=no id="fuga"></iframe></div></div>
-</tbody>
-</table>
-</div>
-</body>
 {% endblock %}
