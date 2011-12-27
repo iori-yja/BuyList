@@ -5,8 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import *
 from jukai.invt.models import *
 
 class Parter:
@@ -234,7 +233,7 @@ def request(request,part_id):
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
 				update_req.save()
-				return HttpResponseRedirect('/resistored')
+				return HttpResponseRedirect('/r1esistored1')
 			else:
 				form=update_req.errors
 		else:
