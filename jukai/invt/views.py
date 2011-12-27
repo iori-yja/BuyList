@@ -227,10 +227,10 @@ def partadd(request,sp='none'):
 
 def request(request,part_id):
 	if request.user.is_authenticated():
-		reqobj = Req()
-		reqobj.partype = Part.objects.get(id=part_id)
-		reqobj.user = request.user
 		if request.method == 'POST':
+			reqobj = Req()
+			reqobj.partype = Part.objects.get(id=part_id)
+			reqobj.user = request.user
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
 				update_req.save()
@@ -238,7 +238,7 @@ def request(request,part_id):
 			else:
 				form=update_req.errors
 		else:
-			form = ReqForm(instance=reqobj)
+			form = ReqForm()
 		return render_to_response('html/fuga.html',
 			{'form' : form},
 			context_instance=RequestContext(request)
@@ -269,8 +269,10 @@ def webreport(request):
 			latest_part_list = Part.objects.all().order_by('id')
 			nee = [ Parter(latest_part) for latest_part in latest_part_list ]
 			new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
+			bout = BoughtForm()
 			return render_to_response('html/hoge.html',
 				{"needs":new,
+				 "bout" :bout,
 				"report":True},
 				context_instance=RequestContext(request))
 		else:

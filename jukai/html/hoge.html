@@ -32,7 +32,7 @@ function hidealbox(){
 }
 // -->
 </script>
-		<td width="200"><h1>買出しリスト</h1>
+		<h1>買出しリスト</h1>
 			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
 		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにチェックを入れて、その数を記入してください{% else %}{% if top %}
 		What's this?
@@ -81,8 +81,10 @@ function hidealbox(){
 		{% if needs %}
 		{% for n in needs %}<tr class="odd">
 			{% if report %}
+			<form method="POST" action=".">
 			<th scope="col"><input type="checkbox"></th>
-			<th scope="col"></th>
+			<th scope="col"><input type="text"></th>
+			</form>
 			{% endif %}
 			<th scope="row" class="column1">
 			{{ n.latest_part.name }}</th>
@@ -96,7 +98,7 @@ function hidealbox(){
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
 			<td>
-			{% if report %} {% else %}<a href=/jukai/{{n.latest_part.id}}>Edit</a></td><td>
+			{% if report %} {% else %}<a href=/jukai/edit/{{n.latest_part.id}}>Edit</a></td><td>
 				<span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}
@@ -107,5 +109,4 @@ function hidealbox(){
 		{% endif %}
 		</tbody>
 		</table>
-	</td>
 {% endblock %}

@@ -77,7 +77,7 @@ class Wiring(Part):
 		return prop
 
 ##########センサ
-class Sensor(Part):###################################################################################
+class Sensor(Part):
 	partype = models.CharField(max_length=200)
 	def mkprop(self):
 		return self.sensor.partype
@@ -123,7 +123,7 @@ class Capasitor(Part):
 		prop=str(self.capasitor.farad)+self.capasitor.farsuf+"F"+u"の"+self.capasitor.partype+str(self.capasitor.volt)
 		return prop
 
-##########ツール###################################################################################
+##########ツール
 class Tool(Part):
 	partype = models.CharField(max_length=20)
 	def mkprop(self):
@@ -171,6 +171,14 @@ class Butsutsu(ModelForm):
 	user = models.EmailField(max_length=140)
 	post = models.TextField()
 
+class Bought(models.Model):
+	shop    = models.CharField(max_length=20)
+	partype = models.ForeignKey(Part)
+	date    = models.DateTimeField(auto_now=True,auto_now_add=False)
+	price   = models.IntegerField(blank=True)
+	buyer   = models.ForeignKey(User,related_name='+')
+	def __unicode__(self):
+		return self.name
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
@@ -237,6 +245,10 @@ class OtherForm(ModelForm):
 		model = Other
 		exclude = ('user',)
 
+class BoughtForm(ModelForm):
+	class Meta:
+		model = Other
+		exclude = ('user',)
 from django.contrib import admin
 admin.site.register(Part)
 admin.site.register(Req)
@@ -254,6 +266,7 @@ admin.site.register(Regulater)
 admin.site.register(Subtrace)
 admin.site.register(Connector)
 admin.site.register(Other)
+admin.site.register(Bought)
 
 def objdelete(partobj):
  try: partobj.resistor.delete()

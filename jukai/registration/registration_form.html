@@ -3,13 +3,11 @@
 {% load i18n %}
 
 {% block main %}
-<td>
 <h1>登録〜っ</h1>
 <form method="post" action=".">
 <table>
 {{ form.as_table }}
 </table>
-</td>
-  <input type="submit" value="{% trans 'Submit' %}" />
+<input type="submit" value="{% trans 'Submit' %}" />
 </form>
 {% endblock %}
