@@ -124,7 +124,8 @@ def index(request):
 	latest_part_list = Part.objects.all().order_by('id')[:1000]
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
 	return render_to_response('html/hoge.html',
-		{'needs': nee},
+		{'needs': nee,
+		 },
 		context_instance=RequestContext(request))
 
 
@@ -139,11 +140,6 @@ def new(request,length=10000):
 		context_instance=RequestContext(request)
 		)
 
-def resistored(request,length=10000):
-	return render_to_response('html/resistored.html',
-		{},
-		context_instance=RequestContext(request)
-		)
 def popular(request,length=10000):
 	latest_part_list = Part.objects.all().order_by('id')[:length]
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
@@ -152,6 +148,11 @@ def popular(request,length=10000):
 		{'needs': new,
 		'popular': True,
 		'length': length},
+		context_instance=RequestContext(request)
+		)
+def resistored(request,length=10000):
+	return render_to_response('html/resistored.html',
+		{},
 		context_instance=RequestContext(request)
 		)
 def user(request,user_id='none'):
