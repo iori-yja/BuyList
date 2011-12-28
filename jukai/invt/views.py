@@ -234,13 +234,14 @@ def request(request,part_id):
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
 				update_req.save()
-				return HttpResponseRedirect('/r1esistored1')
+				return HttpResponseRedirect('/resistored')
 			else:
 				form=update_req.errors
 		else:
 			form = ReqForm()
 		return render_to_response('html/fuga.html',
-			{'form' : form},
+			{'form' : form,
+			 "id"	: part_id},
 			context_instance=RequestContext(request)
 			)
 	else:

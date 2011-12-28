@@ -2,6 +2,33 @@
 {% block main %}
 <script type="text/javascript">
 <!--
+function getPage(pageURL) {
+	xmlhttp = createXMLHttp();
+	if (xmlhttp){
+		xmlhttp.onreadystatechange = setPageData;
+		xmlhttp.open('GET', pageURL);
+		xmlhttp.send(null);
+	}else{
+		alert("XMLHttpRequest失敗");
+	}
+}
+function setPageData(){
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)	
+		document.getElementById("disp").innerHTML = xmlhttp.responseText;
+}
+// XMLHttpsオブジェクト作成
+function createXMLHttp(){
+	try {
+		return new ActiveXObject ("Microsoft.XMLHTTP");
+	}catch(e){
+		try {
+		return new XMLHttpRequest();
+		}catch(e) {
+			return null;
+		}
+	}
+	return null;
+}
 
 function load(sun,moon){
 	var hoge=document.getElementById("fuga");
@@ -99,11 +126,12 @@ function hidealbox(){
 			<td>{{ n.up_date }}</td>
 			<td>
 			{% if report %} {% else %}<a href=/jukai/edit/{{n.latest_part.id}}>Edit</a></td><td>
-				<span onClick="load('{{n.latest_part.id}}','{{forloop.counter0}}')" class="button1" id="{{forloop.counter0}}">
+			<span onClick="getPage('/jukai/req/{{n.latest_part.id}}')" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}
 		</tr>
 		{% endfor %}
+<div id="disp"></div>
 		{% else %}
 		<p>I don't know anything about mechatronics.</p>
 		{% endif %}
