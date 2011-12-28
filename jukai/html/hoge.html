@@ -129,9 +129,15 @@ function hidealbox(){
 			<span onClick="getPage('/jukai/req/{{n.latest_part.id}}')" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}
+		</tr><tr class="even">
+			<th scope="row" class="column1">
+			</th>
+			<td colspan="9"><div id="disp{{forloop.counter0"}}></div>
+			</td>
+			<tr>
+			</tr>
 		</tr>
 		{% endfor %}
-<div id="disp"></div>
 		{% else %}
 		<p>I don't know anything about mechatronics.</p>
 		{% endif %}
