@@ -3,7 +3,7 @@
 <script type="text/javascript">
 <!--
 function callform(pid,fid){
-	getPage('/jukai/req/'+pid,fid);
+	getPage('/django/jukai/req/'+pid,fid);
 	load(1,fid);
 }
 
@@ -37,7 +37,7 @@ function createXMLHttp(){
 function load(sun,moon){
 //	var hoge=document.getElementById("fuga");
 //	var albox=document.getElementById("albox");
-//	hoge.src="/jukai/req/"+sun;
+//	hoge.src="/django/jukai/req/"+sun;
 //	albox.style.visibility="visible";
 	for(var n=0;n<{{needs|length}};n++){	
 		if (n!=moon){
@@ -86,14 +86,14 @@ function hidealbox(){
 		<h2>開発手法</h2>
 		gitでヴァージョン管理をしています。上のリポジトリから見れます。
 		<h2>あの機能はないの?</h2>
-		メーリングリストで僕にきくか、<a href="http://iorivr.dyndns.org:8080/redmine/projects/jukai-list/">redmine</a>を活用してください。
-		部品を消す機能は、部品のeditを押し、~/jukai/(id)となっているアドレスを~/jukai/deletepart/(id)とするとその部品は消えます。<br>
+		メーリングリストで僕にきくか、<a href="http://iorivr.dyndns.org:8080/redmine/projects/django/jukai-list/">redmine</a>を活用してください。
+		部品を消す機能は、部品のeditを押し、~/django/jukai/(id)となっているアドレスを~/django/jukai/deletepart/(id)とするとその部品は消えます。<br>
 		要素別のソートはだれかjavascriptで書いてください。その他にはredmineを参照してください。<br>
 		<td>{% endif %}{% endif%}{% endif%}{% endif%}</h2>{% endif %}
 			<table>
 			<thead><tr>
 			{% if report %}
-			<form method="POST" action="/jukai/report/">
+			<form method="POST" action="/django/jukai/report/">
 			<th scope="col"></th>
 			<th scope="col"><input type="submit" /></th>
 			{% endif %}
@@ -129,7 +129,7 @@ function hidealbox(){
 			<td>{{ n.allneeds }}個</td>
 			<td>{{ n.up_date }}</td>
 			<td>
-			{% if report %} {% else %}<a href=/jukai/edit/{{n.latest_part.id}}>Edit</a></td><td>
+			{% if report %} {% else %}<a href=/django/jukai/edit/{{n.latest_part.id}}>Edit</a></td><td>
 			<span onClick="callform({{n.latest_part.id}},{{forloop.counter0}})" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}

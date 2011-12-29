@@ -117,8 +117,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'http://iorivr.dyndns.org/template',
-    '/home/ioriveur/django/invt/jukai',
     '/var/www/django/jukai',
+    '/home/ioriveur/django/invt/jukai',
 )
 
 INSTALLED_APPS = (
@@ -160,13 +160,11 @@ LOGGING = {
     }
 }
 
-from pit import Pit
-mailacc = Pit.get('subacc')
 ACCOUNT_ACTIVATION_DAYS=7 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = mailacc['email']
-EMAIL_HOST_PASSWORD = mailacc['password']
+EMAIL_HOST_USER = 'fibo,11235813213455@gmail.com'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 LOGIN_REDIRECT_URL = "/jukai/new/"
 LOGIN_URL = "/login/"

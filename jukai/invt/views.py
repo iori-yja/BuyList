@@ -166,7 +166,7 @@ def resistored(request,length=10000):
 def user(request,user_id='none'):
 	if user_id=='none':
 		if request.user.is_authenticated():
-			return HttpResponseRedirect(('/jukai/user/'+str(request.user.id)))
+			return HttpResponseRedirect(('/django/jukai/user/'+str(request.user.id)))
 		else:
 			return HttpResponseRedirect('/login')
 	else:

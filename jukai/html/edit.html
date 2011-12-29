@@ -30,7 +30,7 @@
 			<th scope="row" id="r100">{{ p.Wnum }}個</th>
 			<th scope="row" id="r100">{{ p.allneeds}}個</th>
 			<th scope="row" id="r100">{{ p.up_date }}</th>
-			<th scope="row" id="r100"><a href=/jukai/{{p.id}}>Go editting</a></th>
+			<th scope="row" id="r100"><a href=/django/jukai/{{p.id}}>Go editting</a></th>
 		</tr>
 			<th scope="row" id="r100"></th>
 			<th scope="row" id="r100"></th>
@@ -43,7 +43,7 @@
 			<th scope="row" id="r100">{{ p.properties }}</th>
 	</tbody>
 </table>	
-<form action="/jukai/{{ p.id }}/add/" method="post">
+<form action="/django/jukai/{{ p.id }}/add/" method="post">
 <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
 <input type="submit" value="投票する" />
 </form>
