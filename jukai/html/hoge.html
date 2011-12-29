@@ -44,6 +44,8 @@ function load(sun,moon){
 			var mod=document.getElementById(n)
 			mod.style.color="#888888";
 			mod.className="button1";
+			var moda=document.getElementById("disp"+n);
+			moda.innerHTML = "";
 		}
 		else{
 			var mod=document.getElementById(n);
@@ -134,9 +136,7 @@ function hidealbox(){
 					Request
 			</span></td>{% endif %}
 		</tr><tr class="even">
-			<th scope="row" class="column1">
-			</th>
-			<td colspan="9"><div id="disp{{forloop.counter0}}"></div>
+		<td colspan="11"><div visibility="hidden" id="disp{{forloop.counter0}}"></div>
 			</td>
 			<tr>
 			</tr>
