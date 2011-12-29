@@ -82,7 +82,7 @@ def reportbought(part_id, num):
 		pl = partreq
 		while pl != [] and num > 0:
 			if pl[0].Anum > num:
-				pl[0].Anum = partreq.Anum - num
+				pl[0].Anum = pl[0].Anum - num
 			else:
 				num = num - pl[0].Anum
 				pl[0].Anum = 0
@@ -93,7 +93,7 @@ def reportbought(part_id, num):
 		pl = partreq
 		while pl != [] and num > 0:
 			if pl[0].Bnum > num:
-				pl[0].Bnum = partreq.Bnum - num
+				pl[0].Bnum = pl[0].Bnum - num
 			else:
 				num = num - pl[0].Bnum
 				pl[0].Bnum = 0
@@ -104,7 +104,7 @@ def reportbought(part_id, num):
 		pl = partreq
 		while pl != [] and num > 0:
 			if pl[0].Cnum > num:
-				pl[0].Cnum = partreq.Cnum - num
+				pl[0].Cnum = pl[0].Cnum - num
 			else:
 				num = num - pl[0].Cnum
 				pl[0].Cnum = 0
@@ -309,8 +309,10 @@ def webreport(request):
 							)
 						)
 					)
-			map(lambda x: reportbought(x[0],x[1]),postitem)
-			test =postitem
+			#map(lambda x: reportbought(x[0],x[1]),postitem)
+			item = postitem[0]
+			reportbought(item[0],item[1])
+			test =item
 			deletenullreqdb()
 			return render_to_response('html/test.html',
 				{"test":test,
