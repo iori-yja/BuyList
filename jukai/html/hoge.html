@@ -2,19 +2,23 @@
 {% block main %}
 <script type="text/javascript">
 <!--
-function getPage(pageURL) {
+function callform(pid,fid){
+	getPage('/jukai/req/'+pid,fid);
+	load(1,fid);
+}
+
+function getPage(pageURL,arg) {
 	xmlhttp = createXMLHttp();
 	if (xmlhttp){
-		xmlhttp.onreadystatechange = setPageData;
+		xmlhttp.onreadystatechange = function (){
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+				document.getElementById("disp"+arg).innerHTML = xmlhttp.responseText;
+			}
 		xmlhttp.open('GET', pageURL);
 		xmlhttp.send(null);
 	}else{
 		alert("XMLHttpRequest失敗");
 	}
-}
-function setPageData(){
-	if (xmlhttp.readyState == 4 && xmlhttp.status == 200)	
-		document.getElementById("disp").innerHTML = xmlhttp.responseText;
 }
 // XMLHttpsオブジェクト作成
 function createXMLHttp(){
@@ -31,10 +35,10 @@ function createXMLHttp(){
 }
 
 function load(sun,moon){
-	var hoge=document.getElementById("fuga");
-	var albox=document.getElementById("albox");
-	hoge.src="/jukai/req/"+sun;
-	albox.style.visibility="visible";
+//	var hoge=document.getElementById("fuga");
+//	var albox=document.getElementById("albox");
+//	hoge.src="/jukai/req/"+sun;
+//	albox.style.visibility="visible";
 	for(var n=0;n<{{needs|length}};n++){	
 		if (n!=moon){
 			var mod=document.getElementById(n)
@@ -126,13 +130,13 @@ function hidealbox(){
 			<td>{{ n.up_date }}</td>
 			<td>
 			{% if report %} {% else %}<a href=/jukai/edit/{{n.latest_part.id}}>Edit</a></td><td>
-			<span onClick="getPage('/jukai/req/{{n.latest_part.id}}')" class="button1" id="{{forloop.counter0}}">
+			<span onClick="callform({{n.latest_part.id}},{{forloop.counter0}})" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}
 		</tr><tr class="even">
 			<th scope="row" class="column1">
 			</th>
-			<td colspan="9"><div id="disp{{forloop.counter0"}}></div>
+			<td colspan="9"><div id="disp{{forloop.counter0}}"></div>
 			</td>
 			<tr>
 			</tr>
@@ -143,4 +147,5 @@ function hidealbox(){
 		{% endif %}
 		</tbody>
 		</table>
+		<div id="disp"></div>
 {% endblock %}

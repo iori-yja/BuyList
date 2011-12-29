@@ -125,6 +125,7 @@ def index(request):
 	nee = [ Parter(latest_part) for latest_part in latest_part_list ]
 	return render_to_response('html/hoge.html',
 		{'needs': nee,
+		 'top': True,
 		 },
 		context_instance=RequestContext(request))
 
@@ -245,7 +246,7 @@ def request(request,part_id):
 			context_instance=RequestContext(request)
 			)
 	else:
-		return HttpResponseRedirect('/login')
+		return HttpResponseRedirect('/inlinelogin')
 
 def deleterequest(request,req_id):
 	if request.user.is_authenticated():

@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^jukai/user/(\d+)', 'jukai.invt.views.user'),
     #url(r'^jukai/cancel/(\d+)', 'jukai.invt.views.cansel'),
     url(r'^login/$', 'django.contrib.auth.views.login',{'template_name':'html/lin.html'}),
+    url(r'^inlinelogin/$', 'django.contrib.auth.views.login',{'template_name':'html/linline.html'}),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
     url(r'^accounts/', include('registration.urls')),
 )
