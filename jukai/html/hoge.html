@@ -67,7 +67,7 @@ function hidealbox(){
 </script>
 		<h1>買出しリスト</h1>
 			<h2>{% if update %}新着{{ length }}件</h2>{% else %} {% if popular %}人気順{{ length }}件</h2> {% else %}
-		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにチェックを入れて、その数を記入してください{% else %}{% if top %}
+		{% if reqs %}新着リクエスト</h2>{% else %}{% if report %}買出し報告っ</h2>買ったものにその数を記入してください。買っていないものについては空欄で結構です{% else %}{% if top %}
 		What's this?
 		</h2>
 		これは、渋谷教育学園幕張高等学校の物理部、及び付属中学の電気部の、買出しリストの電子化の試みです。
@@ -94,7 +94,6 @@ function hidealbox(){
 			<thead><tr>
 			{% if report %}
 			<form method="POST" action="/django/jukai/report/">
-			<th scope="col"></th>
 			<th scope="col"><input type="submit" /></th>
 			{% endif %}
 			<th scope="col">種類</th>
