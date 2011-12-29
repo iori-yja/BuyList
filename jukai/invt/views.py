@@ -1,3 +1,4 @@
+import re
 import datetime
 import operator
 from django.shortcuts import render_to_response
@@ -59,6 +60,13 @@ def deletenullreqdb():
 	reduce((lambda x, y: y.allneeds() == 0 and y.delete() or 0), latest_req_list, 1)
 
 def reportbought(part_id, num):
+	"""
+	Function for report of buy a parts.
+	This takes one partid and number you bought the parts.
+
+	Higher priority request is filled and delete(or decrement) former.
+	Empty request will be GC-ed by calling deletenullreqdb().
+	"""
 	def deleterequestM(partreq,num):
 		pl = partreq
 		while pl != [] and num > 0:
@@ -109,7 +117,6 @@ def reportbought(part_id, num):
 	if num > 0: num = deleterequestA(partreq,num)
 	if num > 0: num = deleterequestB(partreq,num)
 	if num > 0: num = deleterequestC(partreq,num)
-	deletenullreqdb()
 	return num
 
 def listreqs(request):
@@ -257,6 +264,9 @@ def deleterequest(request,req_id):
 		return HttpResponseRedirect('/Oops')
 
 def deletepart(request,part_id):
+	"""
+	authenticated user can delete parts.
+	"""
 	if request.user.is_authenticated():
 		partobj = Part.objects.get(id=part_id)
 		objdelete(partobj)
@@ -268,6 +278,10 @@ def deletepart(request,part_id):
 def webreport(request):
 	if request.user.is_authenticated():
 		if request.method == 'GET':
+			"""
+			It's response is a form of number and parts specific data list.
+			The list is sorted by allneeds key, and form key is pidn(n is one of Nutural Number),
+			"""
 			latest_part_list = Part.objects.all().order_by('id')
 			nee = [ Parter(latest_part) for latest_part in latest_part_list ]
 			new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
@@ -278,7 +292,29 @@ def webreport(request):
 				"report":True},
 				context_instance=RequestContext(request))
 		else:
-			maper(request.POST)
-			return HttpResponseRedirect('/Thanks!')
+			"""
+			When POST request came, first analyze POST request,
+			which is a dictionary of form(on the page former we sent).
+			From it this function make a list of tuple, and call reportbought().
+			Finally call deletenullreqdb() to GC.
+			"""
+			def cutpid(o):
+				result  = re.search('\d+',o[0])
+				return result.group(0)
+			postitem = map (lambda x: x!=None and (int(x[0]),int(x[1])),
+					filter(lambda x:x[1]!="0",
+						filter(lambda x: x!=None,
+							map (lambda x:re.search('\d+',x[0])
+								and (re.search('\d+',x[0]).group(),x[1]),request.POST.items())
+							)
+						)
+					)
+			map(lambda x: reportbought(x[0],x[1]),postitem)
+			test =postitem
+			deletenullreqdb()
+			return render_to_response('html/test.html',
+				{"test":test,
+				},
+				context_instance=RequestContext(request))
 	else: HttpResponseRedirect('/login')
 
