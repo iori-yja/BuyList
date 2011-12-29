@@ -302,21 +302,15 @@ def webreport(request):
 				result  = re.search('\d+',o[0])
 				return result.group(0)
 			postitem = map (lambda x: x!=None and (int(x[0]),int(x[1])),
-					filter(lambda x:x[1]!="0",
+					filter(lambda x:x[1]!="" and x[1]!="0",
 						filter(lambda x: x!=None,
 							map (lambda x:re.search('\d+',x[0])
 								and (re.search('\d+',x[0]).group(),x[1]),request.POST.items())
 							)
 						)
 					)
-			#map(lambda x: reportbought(x[0],x[1]),postitem)
-			item = postitem[0]
-			reportbought(item[0],item[1])
-			test =item
+			map(lambda x: reportbought(x[0],x[1]),postitem)
 			deletenullreqdb()
-			return render_to_response('html/test.html',
-				{"test":test,
-				},
-				context_instance=RequestContext(request))
+			HttpResponseRedirect('/Thanks')
 	else: HttpResponseRedirect('/login')
 
