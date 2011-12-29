@@ -93,8 +93,9 @@ function hidealbox(){
 			<table>
 			<thead><tr>
 			{% if report %}
+			<form method="POST" action="/jukai/report/">
 			<th scope="col"></th>
-			<th scope="col"></th>
+			<th scope="col"><input type="submit" /></th>
 			{% endif %}
 			<th scope="col">種類</th>
 			<th scope="col">値段</th>
@@ -114,10 +115,7 @@ function hidealbox(){
 		{% if needs %}
 		{% for n in needs %}<tr class="odd">
 			{% if report %}
-			<form method="POST" action=".">
-			<th scope="col"><input type="checkbox"></th>
-			<th scope="col"><input type="text"></th>
-			</form>
+			<th scope="col"><input name="pid{{n.latest_part.id}}" id="pid{{n.latest_part.id}}" type="text"></th>
 			{% endif %}
 			<th scope="row" class="column1">
 			{{ n.latest_part.name }}</th>
@@ -135,13 +133,15 @@ function hidealbox(){
 			<span onClick="callform({{n.latest_part.id}},{{forloop.counter0}})" class="button1" id="{{forloop.counter0}}">
 					Request
 			</span></td>{% endif %}
-		</tr><tr class="even">
+			</tr>{% if report %}{% else %}<tr>
+			</form>
 		<td colspan="11"><div visibility="hidden" id="disp{{forloop.counter0}}"></div>
 			</td>
 			<tr>
-			</tr>
+			</tr>{% endif %}
 		</tr>
 		{% endfor %}
+	</form>
 		{% else %}
 		<p>I don't know anything about mechatronics.</p>
 		{% endif %}
