@@ -158,11 +158,6 @@ def popular(request,length=10000):
 		'length': length},
 		context_instance=RequestContext(request)
 		)
-def resistored(request,length=10000):
-	return render_to_response('html/resistored.html',
-		{},
-		context_instance=RequestContext(request)
-		)
 def user(request,user_id='none'):
 	if user_id=='none':
 		if request.user.is_authenticated():
@@ -242,7 +237,7 @@ def request(request,part_id):
 			update_req = ReqForm(request.POST,instance=reqobj)
 			if update_req.is_valid():
 				update_req.save()
-				return HttpResponseRedirect('/resistored')
+				return HttpResponseRedirect('/registered')
 			else:
 				form=update_req.errors
 		else:
