@@ -103,7 +103,6 @@ class RegistrationManager(models.Manager):
         """
         new_user = User.objects.create_user(username, email, password)
         new_user.is_active = False
-        new_user.save()
         
         registration_profile = self.create_profile(new_user)
         
@@ -123,8 +122,12 @@ class RegistrationManager(models.Manager):
                                        { 'activation_key': registration_profile.activation_key,
                                          'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
                                          'site': current_site })
-            
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
+            try:
+		    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_user.email])
+                    new_user.save()
+	    except:
+		    new_user.delete()
+		    new_user = None
         return new_user
     
     def create_profile(self, user):
