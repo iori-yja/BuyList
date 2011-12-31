@@ -171,14 +171,6 @@ class Butsutsu(ModelForm):
 	user = models.EmailField(max_length=140)
 	post = models.TextField()
 
-class Bought(models.Model):
-	shop    = models.CharField(max_length=20)
-	partype = models.ForeignKey(Part)
-	date    = models.DateTimeField(auto_now=True,auto_now_add=False)
-	price   = models.IntegerField(blank=True)
-	buyer   = models.ForeignKey(User,related_name='+')
-	def __unicode__(self):
-		return self.name
 class PartForm(ModelForm):
 	class Meta:
 		model = Part
@@ -245,10 +237,6 @@ class OtherForm(ModelForm):
 		model = Other
 		exclude = ('user',)
 
-class BoughtForm(ModelForm):
-	class Meta:
-		model = Other
-		exclude = ('user',)
 from django.contrib import admin
 admin.site.register(Part)
 admin.site.register(Req)
@@ -266,7 +254,6 @@ admin.site.register(Regulater)
 admin.site.register(Subtrace)
 admin.site.register(Connector)
 admin.site.register(Other)
-admin.site.register(Bought)
 
 def objdelete(partobj):
  try: partobj.resistor.delete()

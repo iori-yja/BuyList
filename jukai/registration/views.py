@@ -146,11 +146,15 @@ def register(request, success_url=None,
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_user = form.save(profile_callback=profile_callback)
-            # success_url needs to be dynamically generated here; setting a
-            # a default value using reverse() will cause circular-import
-            # problems with the default URLConf for this application, which
-            # imports this file.
-            return HttpResponseRedirect(success_url or reverse('registration_complete'))
+	    if new_user is not None:
+                    # success_url needs to be dynamically generated here; setting a
+                    # a default value using reverse() will cause circular-import
+                    # problems with the default URLConf for this application, which
+                    # imports this file.
+		    return HttpResponseRedirect(success_url or reverse('registration_complete'))
+	    else:
+		    return HttpResponseRedirect("/faild")
+
     else:
         form = form_class()
     
