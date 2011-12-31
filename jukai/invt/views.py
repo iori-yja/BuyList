@@ -269,6 +269,11 @@ def deletepart(request,part_id):
 	else:
 		return HttpResponseRedirect('/Oops')
 
+def resistored(request,length=10000):
+	return render_to_response('html/registered.html',
+		{},
+		context_instance=RequestContext(request)
+		)
 
 def webreport(request):
 	if request.user.is_authenticated():
