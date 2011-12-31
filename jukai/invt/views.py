@@ -280,10 +280,8 @@ def webreport(request):
 			latest_part_list = Part.objects.all().order_by('id')
 			nee = [ Parter(latest_part) for latest_part in latest_part_list ]
 			new = sorted(nee,reverse=True,key=operator.attrgetter('allneeds'))
-			bout = BoughtForm()
 			return render_to_response('html/hoge.html',
 				{"needs":new,
-				 "bout" :bout,
 				"report":True},
 				context_instance=RequestContext(request))
 		else:
